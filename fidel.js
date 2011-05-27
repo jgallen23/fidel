@@ -1,7 +1,7 @@
 /*!
-  * Qwery - A Blazing Fast query selector engine
-  * https://github.com/ded/qwery
-  * copyright Dustin Diaz & Jacob Thornton 2011
+  * Fidel - A javascript controller 
+  * https://github.com/jgallen23/fidel
+  * copyright JGA 2011
   * MIT License
   */
 
