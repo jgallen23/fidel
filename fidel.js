@@ -131,7 +131,6 @@ if (typeof module !== "undefined") {
     },
     delegateEvents: function() {
       for (var key in this.events) {
-        console.log(key);
         var methodName = this.events[key];
         var method = this.proxy(this[methodName]);
 
@@ -162,6 +161,12 @@ if (typeof module !== "undefined") {
         selector = $(selector) || this.el;
         selector.html(tmp);
       }
+    },
+    trigger: function(name, val) {
+      bean.fire(this, name, val);
+    },
+    bind: function(name, handler) {
+      bean.add(this, name, handler);
     }
   });
   obj.Fidel = Fidel;

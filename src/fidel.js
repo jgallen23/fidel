@@ -21,7 +21,6 @@
     },
     delegateEvents: function() {
       for (var key in this.events) {
-        console.log(key);
         var methodName = this.events[key];
         var method = this.proxy(this[methodName]);
 
@@ -52,6 +51,12 @@
         selector = $(selector) || this.el;
         selector.html(tmp);
       }
+    },
+    trigger: function(name, val) {
+      bean.fire(this, name, val);
+    },
+    bind: function(name, handler) {
+      bean.add(this, name, handler);
     }
   });
   obj.Fidel = Fidel;

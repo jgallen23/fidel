@@ -669,7 +669,7 @@
     (context['bean'] = bean);
 
 }(this);!function ($) {
-  var b = bean.noConflict(),
+  var b = bean,
       integrate = function (method, type, method2) {
         var _args = type ? [type] : [];
         return function () {
