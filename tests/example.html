@@ -1,0 +1,67 @@
+<html>
+	<head>
+		<title></title>
+		<script src="live.js"></script>
+		<script src="ender.js"></script>
+		<!--<script src="../boss.js"></script>-->
+		<script src="../support/str.js/str.js"></script>
+		<script src="../support/simple-class/class.js"></script>
+		<script src="../src/fidel.js"></script>
+		<script>
+			var Widget = Fidel.extend({
+				templateSelector: "#widgetTemplate",
+				elements: {
+					result: ".result"
+				},
+				events: {
+					"click [data-action='click1']": 'click1',
+					"click [data-action='click2']": 'click2',
+				},
+				init: function(options) {
+					console.log("init");
+					this.find(".note").html("This is a note");
+				},
+				click1: function(e) {
+					this.render({ val: 'click1' }, this.result);
+				},
+				click2: function(e) {
+					this.render({ val: 'click2' }, this.result);
+				},
+				/* ?? not sure yet */
+				actions: {
+					"click action click1": "click1",
+					"click tag value": "func"
+				}
+				/* end */
+			});	
+            /*
+            var Widget2 = Class2.create({
+                init: function(options) {
+                    console.log(options);
+                }
+            });
+            new Widget2({ test: 1});
+            */
+		</script>
+	</head>
+	<body>
+		<script type="text/template" id="widgetTemplate">
+			<p>This is coming from the template.</p>
+			<p>You clicked: {!= val !}</p>
+		</script>
+		<div id="widget">
+			<button data-action="click1">Click 1</button>
+			<button data-action="click2">Click 2</button>
+			<div class="result">
+			</div>
+			<div class="note">
+			</div>
+		</div>
+		<script>
+            console.log(Widget);
+			var w = new Widget({ el: $("#widget") });
+            console.log(w);
+			w.click1();
+		</script>
+	</body>
+</html>
