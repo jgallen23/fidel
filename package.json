@@ -1,0 +1,13 @@
+{
+  "name": "fidel",
+  "description": "a ui controller",
+  "version": "0.0.1",
+  "homepage": "https://github.com/jgallen23/fidel",
+  "authors": ["Greg Allen, @jgallen23"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jgallen23/fidel.git"
+  },
+  "main": "./fidel.js",
+  "keywords": ["ender", "controller"]
+}
