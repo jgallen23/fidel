@@ -1,5 +1,6 @@
 !function() {
+  var f = Fidel.noConflict();
   $.ender({
-    Fidel: Fidel
+    Fidel: f
   });
 }();

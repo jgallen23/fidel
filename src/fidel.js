@@ -59,5 +59,10 @@
       bean.add(this, name, handler);
     }
   });
+  var o = obj.Fidel;
+  Fidel.noConflict = function() {
+    obj.Fidel = o;
+    return this;
+  };
   obj.Fidel = Fidel;
 })(window);
