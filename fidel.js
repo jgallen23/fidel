@@ -163,11 +163,16 @@ if (typeof module !== "undefined") {
       }
     },
     trigger: function(name, val) {
-      bean.fire(this, name, val);
+      $(this).trigger(name, val);
     },
     bind: function(name, handler) {
-      bean.add(this, name, handler);
+      $(this).bind(name, handler);
     }
   });
+  var o = obj.Fidel;
+  Fidel.noConflict = function() {
+    obj.Fidel = o;
+    return this;
+  };
   obj.Fidel = Fidel;
 })(window);
