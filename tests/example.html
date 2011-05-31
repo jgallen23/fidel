@@ -23,9 +23,11 @@
 				},
 				click1: function(e) {
 					this.render({ val: 'click1' }, this.result);
+					this.trigger("click");
 				},
 				click2: function(e) {
 					this.render({ val: 'click2' }, this.result);
+					this.trigger("click");
 				},
 				/* ?? not sure yet */
 				actions: {
@@ -34,14 +36,14 @@
 				}
 				/* end */
 			});	
-            /*
-            var Widget2 = Class2.create({
-                init: function(options) {
-                    console.log(options);
-                }
-            });
-            new Widget2({ test: 1});
-            */
+			/*
+			var Widget2 = Class2.create({
+				init: function(options) {
+					console.log(options);
+				}
+			});
+			new Widget2({ test: 1});
+			*/
 		</script>
 	</head>
 	<body>
@@ -58,9 +60,12 @@
 			</div>
 		</div>
 		<script>
-            console.log(Widget);
+			console.log(Widget);
 			var w = new Widget({ el: $("#widget") });
-            console.log(w);
+			w.bind("click", function() {
+				console.log("click was triggered");
+			});
+			console.log(w);
 			w.click1();
 		</script>
 	</body>
