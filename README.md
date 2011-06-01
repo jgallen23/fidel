@@ -38,6 +38,7 @@ w.click1();
 
 ## Constructor
 You can pass an object to the constructor to set options for that widget. 
+
 ``` js
   var w = new Widget({ el: $("#widget""), dance: true });
   //exposes
@@ -50,6 +51,7 @@ Init gets called when you initialize a new Fidel controller. All options are now
 
 ## Elements
 elements: {} is a helper to define all of the elements in your widget.  
+
 ``` js
   elements: { 'test': '.test' }
   //gives you
@@ -61,6 +63,7 @@ this.find is a helper function that will search for any node thats inside your p
 
 ## Events
 events: {} will automatically bind dom events to a function in your Controller.  Syntax is:
+
 ``` js
 events: {
   'type selector': 'function'
