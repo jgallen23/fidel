@@ -1,6 +1,3 @@
-[submodule "support/smoosh"]
-	path = support/smoosh
-	url = https://github.com/fat/smoosh.git
 [submodule "support/str.js"]
 	path = support/str.js
 	url = git://github.com/jgallen23/str.js.git

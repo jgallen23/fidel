@@ -8,6 +8,10 @@
     "type": "git",
     "url": "https://github.com/jgallen23/fidel.git"
   },
+  "dependencies": {
+    "bean": "*",
+    "smoosh": "*"
+  },
   "main": "./fidel.js",
   "keywords": ["ender", "controller"],
   "ender": "./src/ender.js"
