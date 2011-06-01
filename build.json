@@ -3,7 +3,6 @@
     "DIST_DIR": "./",
     "fidel": [
       "./src/copyright.js",
-      "./support/str.js/str.js",
       "./src/fidel.js"
     ]
   },
