@@ -40,7 +40,7 @@ w.click1();
 You can pass an object to the constructor to set options for that widget. 
 
 ``` js
-  var w = new Widget({ el: $("#widget""), dance: true });
+  var w = new Widget({ el: $("#widget"), dance: true });
   //exposes
   w.el //node
   w.dance //true
