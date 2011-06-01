@@ -9,8 +9,7 @@
     "url": "https://github.com/jgallen23/fidel.git"
   },
   "dependencies": {
-    "bean": "*",
-    "smoosh": "*"
+    "bean": "*"
   },
   "main": "./fidel.js",
   "keywords": ["ender", "controller"],
