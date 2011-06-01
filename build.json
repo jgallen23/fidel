@@ -4,7 +4,6 @@
     "fidel": [
       "./src/copyright.js",
       "./support/str.js/str.js",
-      "./support/simple-class/class.js",
       "./src/fidel.js"
     ]
   },
