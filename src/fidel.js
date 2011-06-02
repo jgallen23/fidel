@@ -9,7 +9,6 @@
           this[key] = options[key];
         }
         
-        console.log(this);
         if (this.events) this.delegateEvents();
         if (this.elements) this.refreshElements();
         if (this.templateSelector) this.loadTemplate();
