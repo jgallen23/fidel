@@ -1,5 +1,6 @@
 /*!
   * Fidel - A javascript controller 
+  * v1.0.3
   * https://github.com/jgallen23/fidel
   * copyright JGA 2011
   * MIT License
@@ -53,9 +54,10 @@
         return $(selector, this.el[0]);
       },
       render: function(data, selector) {
+        var str = str || $;
         if (str) {
           var tmp = str.template(this.template, data);
-          selector = $(selector) || this.el;
+          selector = (selector)?$(selector):this.el;
           selector.html(tmp);
         }
       },
