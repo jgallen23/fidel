@@ -34,6 +34,7 @@ var FlickrSearch = Fidel.extend({
     var self = this;
     //Set the value of the search box to the search term.  This is for if `this.search()` is called directly, without actually typing in the search box.
     this.searchBox[0].value = query;
+    this.searchBox[0].select();
     //Give the user some input that things are happening.
     this.photos.html("<div class='loading'>Searching Flickr...</div>");
     //Make a jsonp request out to flickr, passing in our query.
