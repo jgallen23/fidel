@@ -2,6 +2,11 @@
 ----
 Fidel is a simple controller for all of your javascript widgets.  It is inspired from spine.js and backbone.js, but without any of the model/route stuff.
 
+## Example
+
+[Flickr Search](http://jgallen23.github.com/fidel/examples/flickr/index.html) | [Annotated Source](http://jgallen23.github.com/fidel/docs/flickr.html)
+----
+
 It looks like this:
 
 ``` js
