@@ -14,10 +14,12 @@ var FlickrSearch = Fidel.extend({
   },
   // If you load **str.js** (inside ender in this case) along with fidel, you are able to directly render out a javascript template.  The first step to get this working is setting the `templateSelector` to your javascript template in your markup.
   templateSelector: "#PhotoTemplate",
-  // init gets called when you call `new FlickrSearch()`.  this.el
+  // init gets called when you call `new FlickrSearch()`.  In this case, the object that was passed was `{ el: $("#FlickrSearch"), initialSearch: 'kitten' }`.  This will set the element for the controller to the #FlickrSearch node and set `this.initialSearch` to kitten. 
   init: function() {
+    //Check if initialSearch was passed in
     if (this.initialSearch)
-      this.search(this.intialSearch);
+      //If it was, call our search function
+      this.search(this.initialSearch);
   },
   // `createOnEnter` gets called whenever a key is pressed on the search box.
   createOnEnter: function(e) {
