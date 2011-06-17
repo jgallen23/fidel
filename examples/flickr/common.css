@@ -1,6 +1,7 @@
 body { margin: 0; padding: 0; background: #666 }
 .searchBox { width: 400px; margin: 10px auto; background: #999; text-align: center; padding: 20px; -webkit-border-radius: 10px; -moz-border-radius: 10px; }
     .searchBox input { height: 25px; font-size: 16px; width: 80%; }
+    .searchBox a { font-size: 12px; display: block; margin-top: 5px; color: #333; }
 ul { margin: 0; list-style: none; }
 ul li { display: inline-block; text-align: center; margin: 10px }
 ul li a { padding: 10px 10px 25px 10px; background: #eee; border: 1px soild #fff; -moz-box-shadow: 0px 2px 15px #333; -webkit-box-shadow: 0px 2px 15px #333; float: left; }
