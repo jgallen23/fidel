@@ -54,10 +54,10 @@
         }
       },
       trigger: function(name, val) {
-        $(this).trigger(name, val);
+        $(this.el).trigger(name, val);
       },
       bind: function(name, handler) {
-        $(this).bind(name, handler);
+        $(this.el).bind(name, handler);
       }
     };
   };
