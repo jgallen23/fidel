@@ -20,6 +20,8 @@
         if (this.events) this.delegateEvents();
         if (this.elements) this.refreshElements();
         if (this.templateSelector) this.loadTemplate();
+        if (this.actions) this.delegateActions();
+        this.getDataElements();
       },
       proxy: function(func){
         var self = this;
@@ -42,10 +44,28 @@
           }
         }
       },
+      delegateActions: function() {
+        for (var key in this.actions) {
+          var methodName = this.actions[key];
+          var method = this.proxy(this[methodName]);
+
+          var match = key.match(eventSplitter);
+          var eventName = "click", selector = '[data-action="'+key+'"]';
+
+          this.el.delegate(selector, eventName, method);
+        }
+      },
       refreshElements: function() {
         for (var key in this.elements) {
           this[key] = this.find(this.elements[key]);
         }
+      },
+      getDataElements: function() {
+        var self = this;
+        var elements = this.find("[data-element]");
+        elements.each(function(node, index, elem) {
+          self[elem.attr("data-element")] = elem;
+        });
       },
       loadTemplate: function() {
         this.template = $(this.templateSelector).html();
@@ -62,10 +82,10 @@
         }
       },
       trigger: function(name, val) {
-        $(this).trigger(name, val);
+        $(this.el).trigger(name, val);
       },
       bind: function(name, handler) {
-        $(this).bind(name, handler);
+        $(this.el).bind(name, handler);
       }
     };
   };

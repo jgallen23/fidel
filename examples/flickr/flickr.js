@@ -3,10 +3,13 @@
 // This is how you create a new Fidel Controller 
 var FlickrSearch = Fidel.extend({
   // The elements attribute gives you easy access to any of the dom nodes inside of your widget.
-  // You now have access to `this.searchBox` and `this.photos` anywhere inside your code.
+  // You now have access to `this.photos` anywhere inside your code.  An alternative is to add `data-element="photos"` to your html and `this.photos` will automatically bind to that element.
   elements: {
-    'searchBox': '.searchBox input',
     'photos': '.photos'
+  },
+  // Actions auto binds [data-action='search'] to the searchAction method
+  actions: {
+    'search': 'searchAction'
   },
   // Events will automatically bind and proxy a selector to a function in your controller.  In this case, every time you hit a key inside the search box, the function `createOnEnter` is called
   events: {
@@ -25,10 +28,14 @@ var FlickrSearch = Fidel.extend({
   createOnEnter: function(e) {
     //Check if enter was pressed, otherwise don't do anything
     if (e.keyCode != 13) return;
-    //Grab the value from the search box, using `this.searchBox` which maps to `.searchBox input` - defined above in the elements attribute.
+    //Grab the value from the search box, using `this.searchBox` which maps to `.searchBox input` - defined in the html using `data-element="searchBox"`.
     var query = this.searchBox[0].value;
     //Execute another method in our controller to execute the search.
     this.search(query);
+  },
+  //Called when clicking [data-action='search']
+  searchAction: function() {
+    this.search(this.searchBox[0].value);
   },
   search: function(query) {
     var self = this;
