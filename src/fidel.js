@@ -8,6 +8,7 @@
         for (var key in options) {
           this[key] = options[key];
         }
+        if (!this.el) throw "el is required";
         
         if (this.events) this.delegateEvents();
         if (this.elements) this.refreshElements();
