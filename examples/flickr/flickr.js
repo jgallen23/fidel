@@ -7,13 +7,9 @@ var FlickrSearch = Fidel.extend({
   elements: {
     'photos': '.photos'
   },
-  // Actions auto binds [data-action='search'] to the searchAction method
-  actions: {
-    'search': 'searchAction'
-  },
-  // Events will automatically bind and proxy a selector to a function in your controller.  In this case, every time you hit a key inside the search box, the function `createOnEnter` is called
+  // Events will automatically bind and proxy a selector to a function in your controller.  In this case, every time you hit a key inside the search box, the function `searchOnEnter` is called
   events: {
-    'keypress .searchBox input': 'createOnEnter'
+    'searchOnEnter': 'keypress .searchBox input'
   },
   // If you load **str.js** (inside ender in this case) along with fidel, you are able to directly render out a javascript template.  The first step to get this working is setting the `templateSelector` to your javascript template in your markup.
   templateSelector: "#PhotoTemplate",
@@ -24,8 +20,8 @@ var FlickrSearch = Fidel.extend({
       //If it was, call our search function
       this.search(this.initialSearch);
   },
-  // `createOnEnter` gets called whenever a key is pressed on the search box.
-  createOnEnter: function(e) {
+  // `searchOnEnter` gets called whenever a key is pressed on the search box.
+  searchOnEnter: function(e) {
     //Check if enter was pressed, otherwise don't do anything
     if (e.keyCode != 13) return;
     //Grab the value from the search box, using `this.searchBox` which maps to `.searchBox input` - defined in the html using `data-element="searchBox"`.
@@ -33,7 +29,7 @@ var FlickrSearch = Fidel.extend({
     //Execute another method in our controller to execute the search.
     this.search(query);
   },
-  //Called when clicking [data-action='search']
+  //Called when clicking [data-action='searchAction']
   searchAction: function() {
     this.search(this.searchBox[0].value);
   },

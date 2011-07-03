@@ -20,8 +20,8 @@ var Widget = Fidel.extend({
         result: ".result"
     },
     events: {
-        "click [data-action='click1']": 'click1',
-        "click [data-action='click2']": 'click2',
+		'click1': "click [data-action='click1']",
+		'click2': "click [data-action='click2']"
     },
     init: function(options) {
         console.log("init");
@@ -89,5 +89,7 @@ Fidel needs Ender, jQuery or Zepto to work it's magic.
 
 ### Ender
 To use with ender just add fidel to your build command:
-ender build scriptjs fidel
+`ender build scriptjs fidel`
+or 
+`ender add fidel`
 

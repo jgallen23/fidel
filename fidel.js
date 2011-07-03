@@ -21,21 +21,23 @@
         if (this.events) this.delegateEvents();
         if (this.elements) this.refreshElements();
         if (this.templateSelector) this.loadTemplate();
-        if (this.actions) this.delegateActions();
+        if (!this.actionEvent) this.actionEvent = "click";
+        this.delegateActions();
         this.getDataElements();
       },
       proxy: function(func){
         var self = this;
         return(function(){ 
-          return func.apply(self, arguments); 
+          if (func)
+            return func.apply(self, arguments); 
         });
       },
       delegateEvents: function() {
         for (var key in this.events) {
-          var methodName = this.events[key];
+          var methodName = key; 
           var method = this.proxy(this[methodName]);
 
-          var match = key.match(eventSplitter);
+          var match = this.events[key].match(eventSplitter);
           var eventName = match[1], selector = match[2];
 
           if (selector === '') {
@@ -46,13 +48,12 @@
         }
       },
       delegateActions: function() {
-        for (var key in this.actions) {
-          var methodName = this.actions[key];
+        var elements = this.find("[data-action]");
+        for (var i = 0, c = elements.length; i < c; i++) {
+          var elem = $(elements[i]);
+          var methodName = elem.attr("data-action");
           var method = this.proxy(this[methodName]);
-
-          var match = key.match(eventSplitter);
-          var eventName = "click", selector = '[data-action="'+key+'"]';
-
+          var eventName = this.actionEvent, selector = '[data-action="'+methodName+'"]';
           this.el.delegate(selector, eventName, method);
         }
       },
@@ -64,9 +65,10 @@
       getDataElements: function() {
         var self = this;
         var elements = this.find("[data-element]");
-        elements.each(function(node, index, elem) {
+        for (var i = 0, c = elements.length; i < c; i++) {
+          var elem = $(elements[i]);
           self[elem.attr("data-element")] = elem;
-        });
+        }
       },
       loadTemplate: function() {
         this.template = $(this.templateSelector).html();
@@ -86,7 +88,10 @@
         $(this.el).trigger(name, val);
       },
       bind: function(name, handler) {
-        $(this.el).bind(name, handler);
+        var self = this;
+        $(this.el).bind(name, function() { 
+          handler.apply(self, arguments);
+        });
       }
     };
   };
