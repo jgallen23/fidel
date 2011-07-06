@@ -1,6 +1,6 @@
 (function(obj) {
   var eventSplitter = /^(\w+)\s*(.*)$/;
-      
+
   var Fidel = function() {
     return {
       _initialize: function(options) {
