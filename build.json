@@ -3,7 +3,9 @@
     "DIST_DIR": "./",
     "fidel": [
       "./src/copyright.js",
-      "./src/fidel.js"
+      "./src/core.js",
+      "./src/class.js",
+      "./src/controller.js"
     ]
   },
   "JSHINT_OPTS": {

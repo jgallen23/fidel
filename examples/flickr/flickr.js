@@ -1,7 +1,7 @@
 // **FlickrSearch** is a simple web app to show off the powers of **fidel**
 
 // This is how you create a new Fidel Controller 
-var FlickrSearch = Fidel.extend({
+var FlickrSearch = Fidel.ViewController.extend({
   // The elements attribute gives you easy access to any of the dom nodes inside of your widget.
   // You now have access to `this.photos` anywhere inside your code.  An alternative is to add `data-element="photos"` to your html and `this.photos` will automatically bind to that element.
   elements: {

@@ -14,7 +14,7 @@ It looks like this:
 
 ``` js
 
-var Widget = Fidel.extend({
+var Widget = Fidel.ViewController.extend({
     templateSelector: "#widgetTemplate",
     elements: {
         result: ".result"
