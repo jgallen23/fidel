@@ -74,7 +74,7 @@ events: {} will automatically bind dom events to a function in your Controller. 
 
 ``` js
 events: {
-  'type selector': 'function'
+  'function': 'type selector'
 }
 ```
 
