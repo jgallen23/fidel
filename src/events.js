@@ -34,14 +34,14 @@
   };
 
 
-  f.Class.prototype.bind = function(name, callback) {
+  f.Class.prototype.on = f.Class.prototype.bind = function(name, callback) {
     return f.subscribe(this.guid+"."+name, this.proxy(callback));
   };
-  f.Class.prototype.trigger = function(name, data) {
+  f.Class.prototype.emit = f.Class.prototype.trigger = function(name, data) {
     f.publish(this.guid+"."+name, data);
     f.publish(name, data);
   };
-  f.Class.prototype.unbind = function(handle) {
+  f.Class.prototype.removeListener = f.Class.prototype.unbind = function(handle) {
     f.unsubscribe(handle);
   };
 

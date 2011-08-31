@@ -81,6 +81,7 @@
     Class.prototype.proxy = function(func) {
       var thisObject = this;
       return(function(){ 
+        if (!func) return;
         return func.apply(thisObject, arguments); 
       });
     };
@@ -93,6 +94,55 @@
     
     return Class;
   };
+}(Fidel || this);
+
+!function(f) {
+  var cache = {}; //check for "c_" cache for unit testing
+  //publish("/some/topic", ["a","b","c"]);
+  f.publish = function(topic, args){
+
+    var subs = cache[topic], len = subs ? subs.length : 0;
+
+    //can change loop or reverse array if the order matters
+    while(len--){
+      subs[len].apply(this, args || []);
+    }
+  };
+  //subscribe("/some/topic", function(a, b, c){ /* handle data */ });
+  f.subscribe = function(topic, callback){
+    if(!cache[topic]){
+            cache[topic] = [];
+    }
+    cache[topic].push(callback);
+    return [topic, callback]; // Array
+  };
+  //var handle = subscribe("/some/topic", function(){});
+  //unsubscribe(handle);
+  f.unsubscribe = function(handle){
+    console.log(handle);
+    var subs = cache[handle[0]],
+              callback = handle[1],
+              len = subs ? subs.length : 0;
+
+    while(len--){
+      if(subs[len] === callback){
+      subs.splice(len, 1);
+      }
+    }
+  };
+
+
+  f.Class.prototype.on = f.Class.prototype.bind = function(name, callback) {
+    return f.subscribe(this.guid+"."+name, this.proxy(callback));
+  };
+  f.Class.prototype.emit = f.Class.prototype.trigger = function(name, data) {
+    f.publish(this.guid+"."+name, data);
+    f.publish(name, data);
+  };
+  f.Class.prototype.removeListener = f.Class.prototype.unbind = function(handle) {
+    f.unsubscribe(handle);
+  };
+
 }(Fidel || this);
 
 (function(f) {
@@ -110,6 +160,7 @@
       if (this.elements) this.refreshElements();
       if (this.templateSelector) this.loadTemplate();
       if (!this.actionEvent) this.actionEvent = "click";
+      if (this.subs) this.bindEvents();
       this.delegateActions();
       this.getDataElements();
     },
@@ -151,6 +202,11 @@
         self[elem.attr("data-element")] = elem;
       }
     },
+    bindEvents: function() {
+      for (var key in this.subs) {
+        this.bind(key, this.subs[key]);
+      }
+    },
     loadTemplate: function() {
       this.template = $(this.templateSelector).html();
     },
@@ -158,7 +214,7 @@
       return $(selector, this.el[0]);
     },
     render: function(data, selector) {
-      var str = str || $;
+      var str = window.str || $;
       if (str) {
         var tmp = str.template(this.template, data);
         selector = (selector)?$(selector):this.el;

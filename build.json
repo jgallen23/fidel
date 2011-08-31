@@ -5,6 +5,7 @@
       "./src/copyright.js",
       "./src/core.js",
       "./src/class.js",
+      "./src/events.js",
       "./src/controller.js"
     ]
   },

@@ -52,6 +52,7 @@
     Class.prototype.proxy = function(func) {
       var thisObject = this;
       return(function(){ 
+        if (!func) return;
         return func.apply(thisObject, arguments); 
       });
     };

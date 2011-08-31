@@ -13,6 +13,7 @@
       if (this.elements) this.refreshElements();
       if (this.templateSelector) this.loadTemplate();
       if (!this.actionEvent) this.actionEvent = "click";
+      if (this.subs) this.bindEvents();
       this.delegateActions();
       this.getDataElements();
     },
@@ -54,6 +55,11 @@
         self[elem.attr("data-element")] = elem;
       }
     },
+    bindEvents: function() {
+      for (var key in this.subs) {
+        this.bind(key, this.subs[key]);
+      }
+    },
     loadTemplate: function() {
       this.template = $(this.templateSelector).html();
     },
@@ -61,7 +67,7 @@
       return $(selector, this.el[0]);
     },
     render: function(data, selector) {
-      var str = str || $;
+      var str = window.str || $;
       if (str) {
         var tmp = str.template(this.template, data);
         selector = (selector)?$(selector):this.el;
