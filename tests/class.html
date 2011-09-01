@@ -1,0 +1,67 @@
+<html>
+	<head>
+		<title></title>
+		<script src="live.js"></script>
+		<script src="ender.js"></script>
+		<script src="../src/core.js"></script>
+		<script src="../src/class.js"></script>
+		<script src="../src/events.js"></script>
+		<script src="../src/controller.js"></script>
+		<script>
+			var DummyService = Fidel.Class.extend({
+				init: function() {
+					console.log("init class");
+				},
+				getStuff: function(cb) {
+					var self = this;
+					setTimeout(function() {
+						if (cb) cb(123);
+						self.trigger("stuff", [123, 456]);
+					}, 250);
+				}
+			});
+			var service = new DummyService();
+			var service2 = new DummyService();
+			
+			var h1 = service.bind('stuff', function(data) {
+				console.log(this);
+				console.log("event", data);
+			});
+			Fidel.subscribe('stuff', function(data) {
+				console.log("global subscribe", data);
+			});
+
+
+			service.getStuff(function(data) {
+				console.log("callback", data);
+			});
+			service2.getStuff();
+			service.unbind(h1);
+			service.getStuff();
+
+			/*
+			var Test = Fidel.extend({
+
+			});
+			*/
+		</script>
+	</head>
+	<body>
+		<div id="view">
+			<button data-action="button">Button</button>
+			<span data-element="test">Test</span>
+		</div>
+		<script>
+			var DummyView = Fidel.ViewController.extend({
+				init: function() {
+					console.log("init view");
+					console.log(this.test[0].innerHTML);
+				},
+				button: function() {
+					console.log("button clicked");
+				}
+			});
+			new DummyView({ el: $("#view") });
+		</script>
+	</body>
+</html>

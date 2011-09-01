@@ -14,14 +14,14 @@ It looks like this:
 
 ``` js
 
-var Widget = Fidel.extend({
+var Widget = Fidel.ViewController.extend({
     templateSelector: "#widgetTemplate",
     elements: {
         result: ".result"
     },
     events: {
-		'click1': "click [data-action='click1']",
-		'click2': "click [data-action='click2']"
+		"click [data-action='click1']": 'click1',
+		"click [data-action='click2']": 'click2'
     },
     init: function(options) {
         console.log("init");

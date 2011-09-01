@@ -1,7 +1,7 @@
 // **FlickrSearch** is a simple web app to show off the powers of **fidel**
 
 // This is how you create a new Fidel Controller 
-var FlickrSearch = Fidel.extend({
+var FlickrSearch = Fidel.ViewController.extend({
   // The elements attribute gives you easy access to any of the dom nodes inside of your widget.
   // You now have access to `this.photos` anywhere inside your code.  An alternative is to add `data-element="photos"` to your html and `this.photos` will automatically bind to that element.
   elements: {
@@ -9,7 +9,7 @@ var FlickrSearch = Fidel.extend({
   },
   // Events will automatically bind and proxy a selector to a function in your controller.  In this case, every time you hit a key inside the search box, the function `searchOnEnter` is called
   events: {
-    'searchOnEnter': 'keypress .searchBox input'
+    'keypress .searchBox input': 'searchOnEnter' 
   },
   // If you load **str.js** (inside ender in this case) along with fidel, you are able to directly render out a javascript template.  The first step to get this working is setting the `templateSelector` to your javascript template in your markup.
   templateSelector: "#PhotoTemplate",
