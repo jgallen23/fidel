@@ -21,7 +21,6 @@
   //var handle = subscribe("/some/topic", function(){});
   //unsubscribe(handle);
   f.unsubscribe = function(handle){
-    console.log(handle);
     var subs = cache[handle[0]],
               callback = handle[1],
               len = subs ? subs.length : 0;

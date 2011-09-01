@@ -9,21 +9,23 @@
       }
       if (!this.el) throw "el is required";
       
+      this._subscribeHandles = {};
+      this._processedActions = {};
       if (this.events) this.delegateEvents();
       if (this.elements) this.refreshElements();
       if (this.templateSelector) this.loadTemplate();
       if (!this.actionEvent) this.actionEvent = "click";
-      if (this.subs) this.bindEvents();
+      if (this.subscribe) this.bindSubscriptions();
       this.delegateActions();
       this.getDataElements();
     },
     delegateEvents: function() {
       for (var key in this.events) {
-        var methodName = key; 
-        var method = this.proxy(this[methodName]);
-
-        var match = this.events[key].match(eventSplitter);
+        var methodName = this.events[key];
+        var match = key.match(eventSplitter);
         var eventName = match[1], selector = match[2];
+
+        var method = this.proxy(this[methodName]);
 
         if (selector === '') {
           this.el.bind(eventName, method);
@@ -39,7 +41,10 @@
         var methodName = elem.attr("data-action");
         var method = this.proxy(this[methodName]);
         var eventName = this.actionEvent, selector = '[data-action="'+methodName+'"]';
-        this.el.delegate(selector, eventName, method);
+        if (!this._processedActions[methodName]) {
+          this.el.delegate(selector, eventName, method);
+          this._processedActions[methodName] = true;
+        }
       }
     },
     refreshElements: function() {
@@ -55,9 +60,9 @@
         self[elem.attr("data-element")] = elem;
       }
     },
-    bindEvents: function() {
-      for (var key in this.subs) {
-        this.bind(key, this.subs[key]);
+    bindSubscriptions: function() {
+      for (var key in this.subscribe) {
+        this._subscribeHandles[key] = Fidel.subscribe(key, this.proxy(this[this.subscribe[key]]));
       }
     },
     loadTemplate: function() {
@@ -73,6 +78,15 @@
         selector = (selector)?$(selector):this.el;
         selector.html(tmp);
       }
+    },
+    destroy: function() {
+      for (var key in this._subscribeHandles) {
+        Fidel.unsubscribe(this._subscribeHandles[key]);
+      }
+      for (var action in this._processedActions) {
+        this.el.unbind(action);
+      }
+      this.el = null;
     }
   });
   f.ViewController = ViewController;
