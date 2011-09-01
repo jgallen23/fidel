@@ -158,7 +158,7 @@ test('destroy', function() {
 });
 
 //render
-//subs
+//elements
 
 module('Misc');
 test('no conflict', function() {

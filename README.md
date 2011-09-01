@@ -20,8 +20,8 @@ var Widget = Fidel.ViewController.extend({
         result: ".result"
     },
     events: {
-		'click1': "click [data-action='click1']",
-		'click2': "click [data-action='click2']"
+		"click [data-action='click1']": 'click1',
+		"click [data-action='click2']": 'click2'
     },
     init: function(options) {
         console.log("init");

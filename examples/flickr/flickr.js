@@ -9,7 +9,7 @@ var FlickrSearch = Fidel.ViewController.extend({
   },
   // Events will automatically bind and proxy a selector to a function in your controller.  In this case, every time you hit a key inside the search box, the function `searchOnEnter` is called
   events: {
-    'searchOnEnter': 'keypress .searchBox input'
+    'keypress .searchBox input': 'searchOnEnter' 
   },
   // If you load **str.js** (inside ender in this case) along with fidel, you are able to directly render out a javascript template.  The first step to get this working is setting the `templateSelector` to your javascript template in your markup.
   templateSelector: "#PhotoTemplate",
