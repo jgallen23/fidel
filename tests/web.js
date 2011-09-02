@@ -1,6 +1,10 @@
 module('Class', {
   setup: function() {
     this.Class = Fidel.Class.extend({
+      defaults: {
+        a: 1,
+        b: 2
+      },
       init: function() {
         ok(true);
       }
@@ -25,6 +29,12 @@ test('inheritance', function() {
   var i = new Inh();
   ok(i instanceof Fidel.Class);
   ok(i instanceof this.Class);
+});
+
+test('defaults', function() {
+  var c = new this.Class({ b: 3 });
+  equals(c.a, 1);
+  equals(c.b, 3);
 });
 
 //test proxy
@@ -78,6 +88,9 @@ test('multiple events', function() {
 module('ViewController', {
   setup: function() {
     this.Widget = Fidel.ViewController.extend({
+      defaults: {
+        test: 1
+      },
       subscribe: {
         'global': 'pubGlobal' 
       },
@@ -109,6 +122,10 @@ module('ViewController', {
 
 test('has element', function() {
   ok(this.w.el);
+});
+
+test('has defaults', function() {
+  equals(this.w.test, 1);
 });
 
 test('has attribute passed in', function() {

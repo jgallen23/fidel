@@ -38,10 +38,20 @@
     }
     
     // The dummy class constructor
-    function Class() {
+    function Class(opt) {
       // All construction is actually done in the init method
       if (!initializing) {
         this.guid = f.guid();
+        if (this.defaults) {
+          for (var key in this.defaults) {
+            if (typeof opt !== 'object' || !opt[key]) this[key] = this.defaults[key];
+          }
+        }
+        if (typeof opt === 'object') {
+          for (var okey in opt) {
+            this[okey] = opt[okey];
+          }
+        }
         if (this._initialize) this._initialize.apply(this, arguments);
         if (this.init) this.init.apply(this, arguments);
       }

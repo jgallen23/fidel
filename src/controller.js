@@ -4,9 +4,6 @@
   var ViewController = f.Class.extend({
     _initialize: function(options) {
 
-      for (var key in options) {
-        this[key] = options[key];
-      }
       if (!this.el) throw "el is required";
       
       this._subscribeHandles = {};
