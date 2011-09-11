@@ -7,6 +7,9 @@ module('Class', {
       },
       init: function() {
         ok(true);
+      },
+      method: function() {
+        return true;
       }
     });
   }
@@ -17,6 +20,13 @@ test('create class', function() {
   var c = new this.Class();
   ok(c instanceof Fidel.Class);
   ok(c instanceof this.Class);
+});
+
+test('methods', function() {
+  expect(3);
+  var c = new this.Class();
+  ok(c.method);
+  ok(c.method());
 });
 
 test('inheritance', function() {
