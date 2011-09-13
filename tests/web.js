@@ -155,6 +155,11 @@ test('data-element', function() {
   ok(this.w.node);
 });
 
+test('mutitiple data elements', function() {
+  console.log(this.w.node2);
+  equals(this.w.node2.length, 3);
+});
+
 test('data-action', function() {
   expect(1);
   QUnit.triggerEvent(this.w.find('button')[0], "click", Event);

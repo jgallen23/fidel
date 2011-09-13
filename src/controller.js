@@ -53,8 +53,11 @@
       var self = this;
       var elements = this.find("[data-element]");
       for (var i = 0, c = elements.length; i < c; i++) {
-        var elem = $(elements[i]);
-        self[elem.attr("data-element")] = elem;
+        var name = elements[i].getAttribute('data-element');
+        if (!self[name]) {
+          var elem = this.find('[data-element="'+name+'"]');
+          self[name] = elem;
+        }
       }
     },
     bindSubscriptions: function() {
