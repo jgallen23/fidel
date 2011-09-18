@@ -41,7 +41,6 @@
     function Class(opt) {
       // All construction is actually done in the init method
       if (!initializing) {
-        this.guid = f.guid();
         if (this.defaults) {
           for (var key in this.defaults) {
             if (typeof opt !== 'object' || !opt[key]) this[key] = this.defaults[key];
@@ -52,6 +51,7 @@
             this[okey] = opt[okey];
           }
         }
+        if (!this.guid) this.guid = f.guid();
         if (this._initialize) this._initialize.apply(this, arguments);
         if (this.init) this.init.apply(this, arguments);
       }

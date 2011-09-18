@@ -168,7 +168,6 @@ test('data-action', function() {
 test('inject data-action', function() {
   expect(1);
   this.w.el.append($('<button class="inject" data-action="action2">inject button</button>'));
-  this.w.delegateActions();
   QUnit.triggerEvent(this.w.find('button.inject')[0], "click", Event);
 });
 
