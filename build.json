@@ -1,6 +1,6 @@
 {
   "JAVASCRIPT": {
-    "DIST_DIR": "./",
+    "DIST_DIR": "./dist",
     "fidel": [
       "./src/copyright.js",
       "./src/core.js",
