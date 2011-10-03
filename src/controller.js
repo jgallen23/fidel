@@ -69,6 +69,10 @@
       return $(selector, this.el[0]);
     },
     render: function(template, data, selector) {
+      if (arguments.length == 1) {
+        data = template;
+        template = this.templates[this.primaryTemplate];
+      }
       var tmp = this.template(template, data);
       selector = (selector)?$(selector):this.el;
       selector.html(tmp);
