@@ -10,6 +10,9 @@ module('Class', {
       },
       method: function() {
         return true;
+      },
+      testSuper: function() {
+        ok(true);
       }
     });
   }
@@ -39,6 +42,18 @@ test('inheritance', function() {
   var i = new Inh();
   ok(i instanceof Fidel.Class);
   ok(i instanceof this.Class);
+});
+
+test('super', function() {
+  expect(3); //init, testSuper, original testSuper
+  var Inh = this.Class.extend({
+    testSuper: function() {
+      this._super();
+      ok(true);
+    }
+  });
+  var i = new Inh();
+  i.testSuper();
 });
 
 test('defaults', function() {
