@@ -2,11 +2,11 @@
   "JAVASCRIPT": {
     "DIST_DIR": "./dist",
     "fidel": [
-      "./src/copyright.js",
-      "./src/core.js",
-      "./src/class.js",
-      "./src/events.js",
-      "./src/controller.js"
+      "./lib/copyright.js",
+      "./lib/core.js",
+      "./lib/class.js",
+      "./lib/events.js",
+      "./lib/controller.js"
     ]
   },
   "JSHINT_OPTS": {
