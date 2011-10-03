@@ -33,7 +33,8 @@ var Todo = Fidel.Class.extend({
 
 var TodoView = Fidel.ViewController.extend({
   templates: {
-    item: "#item-template"
+    item: "#item-template",
+    stats: '#stats-template'
   },
   events: {
     'keypress input[type="text"]': 'addOnEnter',
@@ -59,6 +60,7 @@ var TodoView = Fidel.ViewController.extend({
 
     var tmp = this.template(this.templates.item, { todo: todo });
     this.todosContainer.prepend(tmp);
+    this.renderStats();
   },
   save: function() {
     todoStore.save(this.todos);
@@ -83,6 +85,23 @@ var TodoView = Fidel.ViewController.extend({
       html.push(tmp);
     }
     this.todosContainer.html(html.join(''));
+    this.renderStats();
+  },
+  renderStats: function() {
+    var todos = this.sortTasks();
+    var data = {
+      total: todos.length,
+      remaining: 0,
+      done: 0
+    };
+    for (var i = 0, c = todos.length; i < c; i++) {
+      var todo = todos[i];
+      if (todo.done)
+        data.done++;
+      else
+        data.remaining++;
+    }
+    this.render(this.templates.stats, data, this.statsContainer);
   },
   complete: function(e) {
     var complete = (e.target.value == "on");
@@ -92,17 +111,26 @@ var TodoView = Fidel.ViewController.extend({
     var todoId = el.parents('li').attr('data-todoid');
     this.todos[todoId].toggleDone();
     this.save();
+    this.renderStats();
   },
-  destroy: function(el) {
+  clearCompleted: function() {
+    var completedTodos = this.find('input:checked');
+    console.log(completedTodos);
+    for (var i = 0, c = completedTodos.length; i < c; i++) {
+      var item = completedTodos[i];
+      this.destroyTodo($(item));
+    }
+  },
+  destroyTodo: function(el) {
     var parent = el.parents('li');
     var guid = parent.attr('data-todoid');
     delete this.todos[guid];
     parent.remove();
     this.save();
+    this.renderStats();
   }
 });
 
 
 //app
 var todos = new TodoView({ el: $("#todoapp") });
-
