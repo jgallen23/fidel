@@ -192,7 +192,7 @@
       this.el.delegate('[data-action]', this.actionEvent, function(e) {
         var el = $(this);
         var methodName = el.attr('data-action');
-        if (self[methodName]) self[methodName].call(self, el);
+        if (self[methodName]) self[methodName].call(self, el, e);
       });
     },
     refreshElements: function() {

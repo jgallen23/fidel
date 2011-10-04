@@ -124,11 +124,13 @@ module('ViewController', {
       },
       init: function() {
       },
-      action: function(e) {
-        equals(e.target.nodeName, "BUTTON");
+      action: function(element, e) {
+        equals(element[0].nodeName, "BUTTON");
+        equals(e.type, "click");
       },
-      action2: function(e) {
-        equals(e.target.nodeName, "BUTTON");
+      action2: function(element, e) {
+        equals(element[0].nodeName, "BUTTON");
+        equals(e.type, "click");
       },
       hrefClicked: function(e) {
         equals(e.target.nodeName, "A");
@@ -176,12 +178,12 @@ test('mutitiple data elements', function() {
 });
 
 test('data-action', function() {
-  expect(1);
+  expect(2);
   QUnit.triggerEvent(this.w.find('button')[0], "click", Event);
 });
 
 test('inject data-action', function() {
-  expect(1);
+  expect(2);
   this.w.el.append($('<button class="inject" data-action="action2">inject button</button>'));
   QUnit.triggerEvent(this.w.find('button.inject')[0], "click", Event);
 });
