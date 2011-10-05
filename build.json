@@ -3,11 +3,13 @@
     "DIST_DIR": "./dist",
     "fidel": [
       "./lib/copyright.js",
+      "./lib/amd-top.js",
       "./lib/core.js",
       "./lib/class.js",
       "./lib/events.js",
       "./lib/template.js",
-      "./lib/controller.js"
+      "./lib/controller.js",
+      "./lib/amd-bottom.js"
     ]
   },
   "JSHINT_OPTS": {
