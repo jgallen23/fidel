@@ -6,6 +6,7 @@
       "./lib/core.js",
       "./lib/class.js",
       "./lib/events.js",
+      "./lib/template.js",
       "./lib/controller.js"
     ]
   },

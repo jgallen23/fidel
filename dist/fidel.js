@@ -154,6 +154,28 @@
 
 }(Fidel || this);
 
+!function() {
+  var templateCache = {};
+  Fidel.template = function tmpl(template, data) {
+    var fn = !/\W/.test(template) ?
+    templateCache[template] = templateCache[template] ||
+      tmpl(template) :
+    new Function("obj",
+      "var p=[],print=function(){p.push.apply(p,arguments);};" +
+      "with(obj){p.push('" +
+      template
+      .replace(/[\r\t\n]/g, "")
+      .split("{!").join("\t")
+      .replace(/((^|!})[^\t]*)'/g, "$1\r")
+      .replace(/\t=(.*?)!}/g, "',$1,'")
+      .split("\t").join("');")
+      .split("!}").join("p.push('")
+      .split("\r").join("\\'")
+    + "');}return p.join('');");
+    return data ? fn( data ) : fn;
+  };
+}();
+
 (function(f) {
   var eventSplitter = /^(\w+)\s*(.*)$/;
 
@@ -171,7 +193,7 @@
       this.delegateActions();
       this.getDataElements();
     },
-    template: (window.str)?window.str.template:null,
+    template: f.template,
     delegateEvents: function() {
       for (var key in this.events) {
         var methodName = this.events[key];
@@ -224,11 +246,12 @@
     find: function(selector) {
       return $(selector, this.el[0]);
     },
-    render: function(template, data, selector) {
+    render: function(templateName, data, selector) {
       if (arguments.length == 1) {
-        data = template;
-        template = this.templates[this.primaryTemplate];
+        data = templateName;
+        templateName = this.primaryTemplate;
       }
+      template = this.templates[templateName];
       var tmp = this.template(template, data);
       selector = (selector)?$(selector):this.el;
       selector.html(tmp);

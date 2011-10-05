@@ -116,6 +116,10 @@ module('ViewController', {
       defaults: {
         test: 1
       },
+      templates: {
+        main: '#template'
+      },
+      primaryTemplate: 'main',
       subscribe: {
         'global': 'pubGlobal' 
       },
@@ -173,7 +177,6 @@ test('data-element', function() {
 });
 
 test('mutitiple data elements', function() {
-  console.log(this.w.node2);
   equals(this.w.node2.length, 3);
 });
 
@@ -198,6 +201,20 @@ test('subscriptions',function() {
   Fidel.publish('global', [1]);
 });
 
+test('render with selector', function() {
+  var name = 'Bob';
+  var data = { name: name };
+  this.w.render('main', data, this.w.node);
+  equals(this.w.node.html(), name);
+});
+
+test('render', function() {
+  var name = 'Bob';
+  var data = { name: name };
+  this.w.render(data);
+  equals(this.w.el.html(), name);
+});
+
 test('destroy', function() {
   expect(0);
   this.w.destroy();
@@ -205,8 +222,7 @@ test('destroy', function() {
   Fidel.publish('global', [1]);
 });
 
-//render
-//elements
+
 
 module('Misc');
 test('no conflict', function() {
