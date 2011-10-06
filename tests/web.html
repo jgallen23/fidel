@@ -7,7 +7,8 @@
 	<script type="text/javascript" src="live.js"></script>
 	<script type="text/javascript" src="qunit/qunit.js"></script>
 	<script type="text/javascript" src="ender.js"></script>
-	<script type="text/javascript" src="../fidel.js"></script>
+	<!--<script type="text/javascript" src="jquery-1.6.4.min.js"></script>-->
+	<script type="text/javascript" src="../dist/fidel.js"></script>
 	<script type="text/javascript" src="web.js"></script>
 </head>
 <body>
@@ -17,6 +18,9 @@
 	<h2 id="qunit-userAgent"></h2>
 	<ol id="qunit-tests"></ol>
 	<div id="qunit-fixture">
+		<script type="text/html" id="template">
+			{!= name !}
+		</script>
 		<div id="widget">
 			<a href="#">Href</a>
 			<button data-action='action'>Button 1</button>

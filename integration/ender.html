@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>fidel integration with ender</title>
+	</head>
+	<body>
+		<script src="ender.js"></script>
+		<script type="text/javascript">
+            var Fidel = require('fidel');
+            var Widget = Fidel.ViewController.extend({
+                init: function() {
+                    console.log("init");
+                }
+            });
+            var w = new Widget({ el: $("body") });
+            console.log(Fidel);
+		</script>
+	</body>
+</html>

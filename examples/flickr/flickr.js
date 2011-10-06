@@ -11,8 +11,10 @@ var FlickrSearch = Fidel.ViewController.extend({
   events: {
     'keypress .searchBox input': 'searchOnEnter' 
   },
-  // If you load **str.js** (inside ender in this case) along with fidel, you are able to directly render out a javascript template.  The first step to get this working is setting the `templateSelector` to your javascript template in your markup.
-  templateSelector: "#PhotoTemplate",
+  // Templates attribute will grab the javascript template from the selector and store it in the `this.templates` variable.  It is used for `this.render()`
+  templates: {
+    photos: '#PhotoTemplate'
+  },
   // init gets called when you call `new FlickrSearch()`.  In this case, the object that was passed was `{ el: $("#FlickrSearch"), initialSearch: 'kitten' }`.  This will set the element for the controller to the #FlickrSearch node and set `this.initialSearch` to kitten. 
   init: function() {
     //Check if initialSearch was passed in
@@ -45,8 +47,8 @@ var FlickrSearch = Fidel.ViewController.extend({
       url: 'http://api.flickr.com/services/feeds/photos_public.gne?format=json&jsoncallback=flickSearch&tags='+escape(query),
       type: 'jsonp',
       success: function(resp) {
-        //`self.render` takes a data object and an optional dom node.  This will grab the template defined in `templateSelector`, pass in the data object, execute the template function in str.js and then render it to either `this.el` or the element passed in.  In this case `self.photos` is mapped to the `.photos` dom node and the template will be rendered there.
-        self.render(resp, self.photos);
+        //`self.render` takes the template name, a data object and an optional dom node.  This will grab the template defined in `templates`, pass in the data object, execute the template function in and then render it to either `this.el` or the element passed in.  In this case `self.photos` is mapped to the `.photos` dom node and the template will be rendered there.
+        self.render('photos', resp, self.photos);
         //
       }
     });

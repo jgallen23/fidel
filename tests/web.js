@@ -10,6 +10,9 @@ module('Class', {
       },
       method: function() {
         return true;
+      },
+      testSuper: function() {
+        ok(true);
       }
     });
   }
@@ -39,6 +42,18 @@ test('inheritance', function() {
   var i = new Inh();
   ok(i instanceof Fidel.Class);
   ok(i instanceof this.Class);
+});
+
+test('super', function() {
+  expect(3); //init, testSuper, original testSuper
+  var Inh = this.Class.extend({
+    testSuper: function() {
+      this._super();
+      ok(true);
+    }
+  });
+  var i = new Inh();
+  i.testSuper();
 });
 
 test('defaults', function() {
@@ -101,6 +116,10 @@ module('ViewController', {
       defaults: {
         test: 1
       },
+      templates: {
+        main: '#template'
+      },
+      primaryTemplate: 'main',
       subscribe: {
         'global': 'pubGlobal' 
       },
@@ -109,11 +128,13 @@ module('ViewController', {
       },
       init: function() {
       },
-      action: function(e) {
-        equals(e.target.nodeName, "BUTTON");
+      action: function(element, e) {
+        equals(element[0].nodeName, "BUTTON");
+        equals(e.type, "click");
       },
-      action2: function(e) {
-        equals(e.target.nodeName, "BUTTON");
+      action2: function(element, e) {
+        equals(element[0].nodeName, "BUTTON");
+        equals(e.type, "click");
       },
       hrefClicked: function(e) {
         equals(e.target.nodeName, "A");
@@ -156,19 +177,17 @@ test('data-element', function() {
 });
 
 test('mutitiple data elements', function() {
-  console.log(this.w.node2);
   equals(this.w.node2.length, 3);
 });
 
 test('data-action', function() {
-  expect(1);
+  expect(2);
   QUnit.triggerEvent(this.w.find('button')[0], "click", Event);
 });
 
 test('inject data-action', function() {
-  expect(1);
+  expect(2);
   this.w.el.append($('<button class="inject" data-action="action2">inject button</button>'));
-  this.w.delegateActions();
   QUnit.triggerEvent(this.w.find('button.inject')[0], "click", Event);
 });
 
@@ -182,6 +201,20 @@ test('subscriptions',function() {
   Fidel.publish('global', [1]);
 });
 
+test('render with selector', function() {
+  var name = 'Bob';
+  var data = { name: name };
+  this.w.render('main', data, this.w.node);
+  equals(this.w.node.html(), name);
+});
+
+test('render', function() {
+  var name = 'Bob';
+  var data = { name: name };
+  this.w.render(data);
+  equals(this.w.el.html(), name);
+});
+
 test('destroy', function() {
   expect(0);
   this.w.destroy();
@@ -189,8 +222,7 @@ test('destroy', function() {
   Fidel.publish('global', [1]);
 });
 
-//render
-//elements
+
 
 module('Misc');
 test('no conflict', function() {
