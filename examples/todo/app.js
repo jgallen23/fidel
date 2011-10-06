@@ -12,7 +12,6 @@ var todoStore = (function() {
       return todos;
     },
     save: function(todos) {
-      console.log(todos);
       localStorage.setItem('fidel.todos', JSON.stringify(todos));
     }
   };
@@ -42,7 +41,6 @@ var TodoView = Fidel.ViewController.extend({
   },
   init: function() {
     this.todos = todoStore.get();
-    console.log(this.todos);
     this.renderAll();
   },
   addOnEnter: function(e) {
@@ -52,7 +50,6 @@ var TodoView = Fidel.ViewController.extend({
   add: function() {
     var name = this.input.val();
     this.input.val('');
-    console.log(this.taskCount);
     var todo = new Todo({ name: name, order: this.taskCount });
     this.taskCount++;
     this.todos[todo.guid] = todo;
@@ -115,7 +112,6 @@ var TodoView = Fidel.ViewController.extend({
   },
   clearCompleted: function() {
     var completedTodos = this.find('input:checked');
-    console.log(completedTodos);
     for (var i = 0, c = completedTodos.length; i < c; i++) {
       var item = completedTodos[i];
       this.destroyTodo($(item));
