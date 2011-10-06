@@ -249,6 +249,7 @@ var ViewController = Fidel.Class.extend({
       templateName = this.primaryTemplate;
     }
     template = this.templates[templateName];
+    if (!template) return;
     var tmp = this.template(template, data);
     selector = (selector)?$(selector):this.el;
     selector.html(tmp);

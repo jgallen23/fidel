@@ -101,7 +101,7 @@ var TodoView = Fidel.ViewController.extend({
       else
         data.remaining++;
     }
-    this.render(this.templates.stats, data, this.statsContainer);
+    this.render('stats', data, this.statsContainer);
   },
   complete: function(e) {
     var complete = (e.target.value == "on");
