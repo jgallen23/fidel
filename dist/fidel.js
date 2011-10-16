@@ -1,6 +1,6 @@
 /*!
   * Fidel - A javascript controller
-  * v1.2.2
+  * v1.2.3
   * https://github.com/jgallen23/fidel
   * copyright JGA 2011
   * MIT License
@@ -67,6 +67,12 @@ Fidel.Class.extend = function(prop) {
       })(name, prop[name]) :
       prop[name];
   }
+
+  var extendObj = function(a, b) {
+    for (var key in a) {
+      if (b[key]) a[key] = b[key];
+    }
+  };
   
   // The dummy class constructor
   function Class(opt) {
@@ -90,6 +96,7 @@ Fidel.Class.extend = function(prop) {
   
   // Populate our constructed prototype object
   Class.prototype = prototype;
+  Class.prototype.extendObject = extendObj;
   Class.prototype.proxy = function(func) {
     var thisObject = this;
     return(function(){ 

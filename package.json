@@ -1,7 +1,7 @@
 {
   "name": "fidel",
   "description": "a ui view controller",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "homepage": "https://github.com/jgallen23/fidel",
   "authors": ["Greg Allen, @jgaui"],
   "repository": {

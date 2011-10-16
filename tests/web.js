@@ -62,6 +62,18 @@ test('defaults', function() {
   equals(c.b, 3);
 });
 
+test('extendObject', function() {
+  var cls = new this.Class();
+  var a = { a: 1, b: 2, c: 3 };
+  var b = { b: 3, d: 4 };
+
+  cls.extendObject(a, b);
+  equals(a.a, 1);
+  equals(a.b, 3);
+  equals(a.c, 3);
+  //equals(c.d, 4); //Future
+});
+
 //test proxy
 
 module('Events', {
