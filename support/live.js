@@ -2,7 +2,8 @@
   Live.js - One script closer to Designing in the Browser
   Written for Handcraft.com by Martin Kool (@mrtnkl).
 
-  Version 3.
+  Version 4.
+  Recent change: Made stylesheet and mimetype checks case insensitive.
 
   http://livejs.com
   http://livejs.com/license (MIT)  
@@ -75,7 +76,7 @@
       // track local css urls
       for (var i = 0; i < links.length && active.css; i++) {
         var link = links[i], rel = link.getAttribute("rel"), href = link.getAttribute("href", 2);
-        if (href && rel && rel.match("stylesheet") && isLocal(href)) {
+        if (href && rel && rel.match(new RegExp("stylesheet", "i")) && isLocal(href)) {
           uris.push(href);
           currentLinkElements[href] = link;
         }
@@ -117,8 +118,8 @@
             var oldValue = oldInfo[header],
                 newValue = newInfo[header],
                 contentType = newInfo["Content-Type"];
-            switch (header) {
-              case "Etag":
+            switch (header.toLowerCase()) {
+              case "etag":
                 if (!newValue) break;
                 // fall through to default
               default:
@@ -137,7 +138,7 @@
 
     // act upon a changed url of certain content type
     refreshResource: function (url, type) {
-      switch (type) {
+      switch (type.toLowerCase()) {
         // css files can be reloaded dynamically by replacing the link element                               
         case "text/css":
           var link = currentLinkElements[url],
@@ -209,8 +210,8 @@
           for (var h in headers) {
             var value = xhr.getResponseHeader(h);
             // adjust the simple Etag variant to match on its significant part
-            if (h == "Etag" && value) value = value.replace(/^W\//, '');
-            if (h == "Content-Type" && value) value = value.replace(/^(.*?);.*?$/i, "$1");
+            if (h.toLowerCase() == "etag" && value) value = value.replace(/^W\//, '');
+            if (h.toLowerCase() == "content-type" && value) value = value.replace(/^(.*?);.*?$/i, "$1");
             info[h] = value;
           }
           callback(url, info);

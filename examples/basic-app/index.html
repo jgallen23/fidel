@@ -1,0 +1,68 @@
+<html>
+  <head>
+    <title>Basic App</title>
+    <script src="../../support/live.js"></script>
+    <style>
+      #templates { display: none; }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div id="page1"></div>
+      <div id="page2"></div>
+    </div>
+    <div id="templates">
+      <div data-template="page1">
+        Hi.  I'm page 1
+        <div class="btn"></div>
+      </div>
+
+      <div data-template="button">
+        This is an awesome button
+        <button>{{name}}</button>
+      </div>
+    </div>
+    <script src="../../support/jquery.min.js"></script>
+    <script src="../../lib/view.js"></script>
+    <script src="../../lib/jquery.view.js"></script>
+    <script>
+      var awesomeButton = {
+        templateName: 'button',
+        events: {
+          'click button': 'buttonClicked'
+        },
+        buttonClicked: function() {
+          this.emit('clicked');
+        }
+      };
+      var page1View = {
+        templateName: 'page1',
+        views: {
+          'button': { 
+            target: '.btn', 
+            view: awesomeButton,
+            events: {
+              'clicked': 'buttonClicked'
+            }
+          }
+        },
+        init: function() {
+
+        },
+        buttonClicked: function() {
+          alert('button was clicked');
+        }
+      };
+      $('#app').view({
+        views: {
+          'page1': { target: '#page1', view: page1View }
+        },
+        init: function() {
+          console.log('hi');
+          this.views.page1.render();
+
+        }
+      });
+    </script>
+  </body>
+</html>
