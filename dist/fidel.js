@@ -1,8 +1,8 @@
 /*!
-  * Fidel - A javascript controller
-  * v1.2.3
+  * Fidel - A javascript view controller
+  * v2.0.0
   * https://github.com/jgallen23/fidel
-  * copyright JGA 2011
+  * copyright JGA 2012
   * MIT License
   */
 
@@ -107,7 +107,7 @@ View.prototype.show = function() {
 !function($) {
   $.fn.view = function(obj) {
     if (this.length != 1) {
-      throw new Error('Must be one selector match');
+      throw new Error('Selector must match 1 element');
     }
     return new View(this, obj);
   };
