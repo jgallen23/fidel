@@ -111,4 +111,4 @@ View.prototype.show = function() {
     }
     return new View(this, obj);
   };
-}(jQuery);
+}(window.jQuery || window.Zepto);
