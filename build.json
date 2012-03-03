@@ -5,6 +5,12 @@
       "./lib/copyright.js",
       "./lib/view.js",
       "./lib/jquery.view.js"
+    ],
+    "fidel.template": [
+      "./lib/copyright.js",
+      "./lib/view.js",
+      "./lib/jquery.view.js",
+      "./lib/template.js"
     ]
   },
   "JSHINT_OPTS": {
