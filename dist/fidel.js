@@ -19,6 +19,7 @@ var View = function(el, obj) {
     this.init();
   }
 };
+View.prototype.debug = false;
 View.prototype.eventSplitter = /^(\w+)\s*(.*)$/;
 View.prototype.find = function(selector) {
   return this.el.find(selector);

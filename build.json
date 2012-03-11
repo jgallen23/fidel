@@ -11,6 +11,12 @@
       "./lib/view.js",
       "./lib/jquery.view.js",
       "./lib/template.js"
+    ],
+    "fidel.jade": [
+      "./lib/copyright.js",
+      "./lib/view.js",
+      "./lib/jquery.view.js",
+      "./lib/jade.js"
     ]
   },
   "JSHINT_OPTS": {
