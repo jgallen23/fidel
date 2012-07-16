@@ -6,30 +6,30 @@
   * MIT License
   */
 
-var View = function(el, obj) {
+(function($) {
+
+var View = function(el, obj, options) {
   $.extend(this, obj);
   this.el = el;
+  this.els = {};
+  obj.defaults = obj.defaults || {};
+  this.options = $.extend({}, obj.defaults, options);
   if (this.preInit) {
     this.preInit();
   }
-  this.delegateEvents();
   this.getElements();
-  this.processSubViews();
+  this.delegateEvents();
+  this.delegateActions();
   if (this.init) {
     this.init();
   }
 };
-View.prototype.debug = false;
 View.prototype.eventSplitter = /^(\w+)\s*(.*)$/;
 View.prototype.find = function(selector) {
   return this.el.find(selector);
 };
 View.prototype.proxy = function(func) {
-  var thisObject = this;
-  return(function(){ 
-    if (!func) return;
-    return func.apply(thisObject, arguments); 
-  });
+  return $.proxy(func, this);
 };
 
 View.prototype.getElements = function() {
@@ -38,11 +38,12 @@ View.prototype.getElements = function() {
 
   for (var selector in this.elements) {
     var elemName = this.elements[selector];
-    this[elemName] = this.find(selector);
+    this.els[elemName] = this.find(selector);
   }
 };
 
 View.prototype.delegateEvents = function() {
+  var self = this;
   if (!this.events)
     return;
   for (var key in this.events) {
@@ -53,48 +54,26 @@ View.prototype.delegateEvents = function() {
     var method = this.proxy(this[methodName]);
 
     if (selector === '') {
-      this.el.bind(eventName, method);
+      this.el.on(eventName, method);
     } else {
-      this.el.delegate(selector, eventName, method);
-    }
-  }
-};
-
-View.prototype.processSubViews = function() {
-  if (!this.views)
-    return;
-  for (var key in this.views) {
-    var viewObj = this.views[key];
-    this.views[key] = $(viewObj.target).view(viewObj.view);
-
-    if (viewObj.events) {
-      for (var eventName in viewObj.events) {
-        var methodName = viewObj.events[eventName];
-        var method = this.proxy(this[methodName]);
-        this.views[key].on(eventName, method);
+      if (this.els[selector]) {
+        this.els[selector].on(eventName, method);
+      } else {
+        this.el.on(eventName, selector, method);
       }
     }
   }
 };
 
-View.prototype.processSubscriptions = function() {
-  if (!this.subs)
-    return; 
-};
-
-View.prototype.render = function(data) {
-  this.renderSubViews(data);
-  if (this._render)
-    this._render(data);
-  this.getElements();
-};
-
-View.prototype.renderSubViews = function(data) {
-  if (this.views) {
-    for (var key in this.views) {
-      this.views[key].render(data);
+View.prototype.delegateActions = function() {
+  var self = this;
+  self.el.on('click', '[data-action]', function(e) {
+    var el = $(this);
+    var action = el.attr('data-action');
+    if (self[action]) {
+      self[action](e, el);
     }
-  }
+  });
 };
 
 View.prototype.on = function(eventName, cb) {
@@ -122,15 +101,29 @@ View.prototype.show = function() {
 };
 
 
-!function($) {
-  $.fn.view = function(obj) {
-    if (this.length != 1) {
-      throw new Error('Selector must match 1 element');
-    }
-    return new View(this, obj);
-  };
-}(window.jQuery || window.Zepto);
+$.strap = function(name, obj) {
 
-View.prototype._render = function(data) {
-  jade.render(this.el[0], this.templateName, data);
+  $.fn[name] = function(options) {
+
+    return this.each(function() {
+      var $this = $(this);
+
+      var data = $this.data(name);
+
+      if (!data) {
+        data = new View($this, obj, options);
+        $this.data(name, data); 
+      }
+      if (typeof options === 'string') {
+        data[options]();
+      }
+    });
+  };
+
+  $.fn[name].defaults = obj.defaults || {};
+
 };
+
+$.strap.View = View;
+
+})(window.jQuery || window.Zepto);
