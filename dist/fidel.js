@@ -101,7 +101,7 @@ View.prototype.show = function() {
 };
 
 
-$.strap = function(name, obj) {
+$.fidel = function(name, obj) {
 
   $.fn[name] = function(options) {
 
@@ -124,6 +124,6 @@ $.strap = function(name, obj) {
 
 };
 
-$.strap.View = View;
+$.fidel.View = View;
 
 })(window.jQuery || window.Zepto);
