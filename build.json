@@ -1,7 +1,7 @@
 {
   "JAVASCRIPT": {
     "DIST_DIR": "./dist",
-    "strap": [
+    "fidel": [
       "./lib/copyright.js",
       "./lib/head.js",
       "./lib/view.js",
