@@ -6,7 +6,7 @@
   * MIT License
   */
 
-(function($) {
+(function(w, $) {
 
 var View = function(el, obj, options) {
   $.extend(this, obj);
@@ -14,15 +14,13 @@ var View = function(el, obj, options) {
   this.els = {};
   obj.defaults = obj.defaults || {};
   this.options = $.extend({}, obj.defaults, options);
-  if (this.preInit) {
-    this.preInit();
-  }
   this.getElements();
   this.delegateEvents();
   this.delegateActions();
   if (this.init) {
     this.init();
   }
+  $('body').trigger('FidelInit', this);
 };
 View.prototype.eventSplitter = /^(\w+)\s*(.*)$/;
 View.prototype.find = function(selector) {
@@ -100,6 +98,13 @@ View.prototype.show = function() {
   this.el.show();
 };
 
+//for plugins
+View.onInit = function(fn) {
+  $('body').on('FidelInit', function(e, obj) {
+    fn.call(obj);
+  });
+};
+
 
 $.fidel = function(name, obj) {
 
@@ -124,6 +129,5 @@ $.fidel = function(name, obj) {
 
 };
 
-$.fidel.View = View;
-
-})(window.jQuery || window.Zepto);
+w.Fidel = View;
+})(window, window.jQuery || window.Zepto);
