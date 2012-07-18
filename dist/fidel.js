@@ -14,13 +14,14 @@ var View = function(el, obj, options) {
   this.els = {};
   obj.defaults = obj.defaults || {};
   this.options = $.extend({}, obj.defaults, options);
+  $('body').trigger('FidelPreInit', this);
   this.getElements();
   this.delegateEvents();
   this.delegateActions();
   if (this.init) {
     this.init();
   }
-  $('body').trigger('FidelInit', this);
+  $('body').trigger('FidelPostInit', this);
 };
 View.prototype.eventSplitter = /^(\w+)\s*(.*)$/;
 View.prototype.find = function(selector) {
@@ -99,12 +100,16 @@ View.prototype.show = function() {
 };
 
 //for plugins
-View.onInit = function(fn) {
-  $('body').on('FidelInit', function(e, obj) {
+View.onPreInit = function(fn) {
+  $('body').on('FidelPreInit', function(e, obj) {
     fn.call(obj);
   });
 };
-
+View.onPostInit = function(fn) {
+  $('body').on('FidelPostInit', function(e, obj) {
+    fn.call(obj);
+  });
+};
 
 $.fidel = function(name, obj) {
 
