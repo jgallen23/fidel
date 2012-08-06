@@ -134,5 +134,7 @@ $.fidel = function(name, obj) {
 
 };
 
+$.fidel.View = View;
+
 w.Fidel = View;
 })(window, window.jQuery || window.Zepto);

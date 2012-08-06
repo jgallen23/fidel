@@ -2,45 +2,45 @@ var assert = chai.assert;
 suite('jQuery', function() {
 
   setup(function() {
-    $.strap('strapPlugin', viewObj);
+    $.fidel('fidelPlugin', viewObj);
   });
 
-  test('$.strap will be a function', function() {
-    assert.isFunction($.strap);
+  test('$.fidel will be a function', function() {
+    assert.isFunction($.fidel);
   });
 
-  test('$.strap() will create plugin', function() {
-    assert.isFunction($.fn.strapPlugin);
-    assert.isFunction($('#fixture').strapPlugin);
+  test('$.fidel() will create plugin', function() {
+    assert.isFunction($.fn.fidelPlugin);
+    assert.isFunction($('#fixture').fidelPlugin);
   });
 
   test('$.fn.plugin.defaults will map to View.defaults', function() {
-    assert.equal($.fn.strapPlugin.defaults, viewObj.defaults);
+    assert.equal($.fn.fidelPlugin.defaults, viewObj.defaults);
   });
 
   test('$().data(pluginName) will return instance', function() {
     var el = $('#fixture');
-    el.strapPlugin();
-    assert.ok(el.data('strapPlugin'));
-    assert.instanceOf(el.data('strapPlugin'), $.strap.View);
+    el.fidelPlugin();
+    assert.ok(el.data('fidelPlugin'));
+    assert.instanceOf(el.data('fidelPlugin'), $.fidel.View);
   });
 
   test('$().plugin() will call init', function() {
     var el = $('#fixture');
-    el.strapPlugin();
-    var instance = el.data('strapPlugin');
+    el.fidelPlugin();
+    var instance = el.data('fidelPlugin');
     assert.ok(instance.initWasCalled);
   });
 
   test('$().plugin("method") will call method name', function() {
 
     var el = $('#fixture');
-    el.strapPlugin();
-    var instance = el.data('strapPlugin');
+    el.fidelPlugin();
+    var instance = el.data('fidelPlugin');
 
     assert.isUndefined(instance.methodWasCalled);
 
-    el.strapPlugin('method');
+    el.fidelPlugin('method');
 
     assert.ok(instance.methodWasCalled);
 

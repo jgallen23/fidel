@@ -5,7 +5,7 @@ suite('View', function() {
   var el = $('#fixture');
 
   setup(function() {
-    view = new $.strap.View(el, viewObj, viewOptions);
+    view = new $.fidel.View(el, viewObj, viewOptions);
   });
 
   suite('#init', function() {
