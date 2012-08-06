@@ -23,6 +23,11 @@ var viewObj = {
   method: function() {
     this.methodWasCalled = true;
   },
+  methodWithArgs: function(arg) {
+    this.methodWithArgsWasCalled = true;
+    this.methodArg = arg;
+    this.methodThis = this;
+  },
   buttonClicked: function(e) {
     this.buttonClickedEvent = e;
     this.buttonClickCount++;

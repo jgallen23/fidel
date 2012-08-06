@@ -45,6 +45,21 @@ suite('jQuery', function() {
     assert.ok(instance.methodWasCalled);
 
   });
+
+  test('$().plugin("method", arg1, arg2) will pass through to method', function() {
+    
+    var el = $('#fixture');
+    el.fidelPlugin();
+    var instance = el.data('fidelPlugin');
+
+    assert.isUndefined(instance.methodWithArgsWasCalled);
+
+    el.fidelPlugin('methodWithArgs', 123);
+
+    assert.ok(instance.methodWithArgsWasCalled);
+    assert.equal(instance.methodArg, 123);
+    assert.equal(instance.methodThis, instance);
+  });
  
 
 });
