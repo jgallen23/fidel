@@ -2,67 +2,59 @@
   <head>
     <title>Basic App</title>
     <script src="../../support/live.js"></script>
-    <style>
-      #templates { display: none; }
-    </style>
   </head>
   <body>
     <div id="app">
       <div id="page1"></div>
       <div id="page2"></div>
     </div>
-    <div id="templates">
-      <div data-template="page1">
-        Hi.  I'm page 1
-        <div class="btn"></div>
-      </div>
+    <script type="text/html" data-template="page1">
+      Hi.  I'm page 1
+      <div class="btn"></div>
+    </script>
 
-      <div data-template="button">
-        This is an awesome button
-        <button>{{name}}</button>
-      </div>
-    </div>
-    <script src="../../support/jquery.min.js"></script>
-    <script src="../../lib/view.js"></script>
-    <script src="../../lib/jquery.view.js"></script>
+    <script type="text/html" data-template="button">
+      This is an awesome button
+      <button>{!=name!}</button>
+    </script>
+    <script src="../../support/jquery-1.7.2.min.js"></script>
+    <script src="../../dist/fidel.js"></script>
+    <script src="../../lib/plugins/subviews.js"></script>
+    <script src="../../lib/plugins/template.js"></script>
     <script>
-      var awesomeButton = {
+      $.fidel('awesomeButton', {
         templateName: 'button',
         events: {
           'click button': 'buttonClicked'
         },
+        render: function() {
+          Fidel.prototype.render.call(this, { name: this.options.name });
+        },
         buttonClicked: function() {
           this.emit('clicked');
         }
-      };
-      var page1View = {
+      });
+      $.fidel('page1View', {
         templateName: 'page1',
-        views: {
-          'button': { 
-            target: '.btn', 
-            view: awesomeButton,
-            events: {
-              'clicked': 'buttonClicked'
-            }
-          }
-        },
         init: function() {
-
+        },
+        render: function() {
+          Fidel.prototype.render.apply(this, arguments);
+          this.button = this.addSubView('.btn', 'awesomeButton', { name: 'Click Me' });
+          this.button.on('click', this.proxy(this.buttonClicked));
+          this.button.render();
         },
         buttonClicked: function() {
           alert('button was clicked');
         }
-      };
-      $('#app').view({
-        views: {
-          'page1': { target: '#page1', view: page1View }
-        },
-        init: function() {
-          console.log('hi');
-          this.views.page1.render();
-
-        }
       });
+      $.fidel('app', {
+        init: function() {
+          this.page1 = this.addSubView('#page1', 'page1View');
+          this.page1.render();
+        },
+      });
+      $('#app').app();
     </script>
   </body>
 </html>
