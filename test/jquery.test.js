@@ -2,14 +2,18 @@ var assert = chai.assert;
 suite('jQuery', function() {
 
   setup(function() {
-    $.fidel('fidelPlugin', viewObj);
+    $.declare('fidelPlugin', viewObj);
   });
 
-  test('$.fidel will be a function', function() {
-    assert.isFunction($.fidel);
+  test('$.declare will be a function', function() {
+    assert.isFunction($.declare);
   });
 
-  test('$.fidel() will create plugin', function() {
+  test('$.Fidel == Fidel class', function() {
+    assert.isFunction($.Fidel);
+  });
+
+  test('$.declare() will create plugin', function() {
     assert.isFunction($.fn.fidelPlugin);
     assert.isFunction($('#fixture').fidelPlugin);
   });
@@ -22,7 +26,7 @@ suite('jQuery', function() {
     var el = $('#fixture');
     el.fidelPlugin();
     assert.ok(el.data('fidelPlugin'));
-    assert.instanceOf(el.data('fidelPlugin'), $.fidel.View);
+    assert.instanceOf(el.data('fidelPlugin'), $.Fidel);
   });
 
   test('$().plugin() will call init', function() {

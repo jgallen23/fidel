@@ -45,7 +45,3 @@ var viewObj = {
     this.actionClickCount++;
   }
 };
-var viewOptions = {
-  enabled: true,
-  debug: true
-};

@@ -4,7 +4,7 @@
     "fidel": [
       "./lib/copyright.js",
       "./lib/head.js",
-      "./lib/view.js",
+      "./lib/fidel.js",
       "./lib/jquery.js",
       "./lib/foot.js"
     ]

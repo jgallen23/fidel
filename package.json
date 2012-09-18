@@ -9,5 +9,10 @@
     "url": "https://github.com/jgallen23/fidel.git"
   },
   "main": "./dist/fidel.js",
-  "keywords": ["ender", "controller", "mvc"]
+  "keywords": ["view", "controller", "mvc"],
+  "devDependencies": {
+    "mocha": "*",
+    "chai": "*",
+    "smoosh": "*"
+  }
 }

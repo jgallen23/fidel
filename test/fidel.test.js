@@ -1,11 +1,17 @@
 var assert = chai.assert;
-suite('View', function() {
+suite('Fidel', function() {
 
+  var View;
   var view;
   var el = $('#fixture');
 
   setup(function() {
-    view = new $.fidel.View(el, viewObj, viewOptions);
+    //viewObj from fixture.js
+    View = Fidel.declare(viewObj);
+    view = new View(el, {
+      debug: true,
+      test: 123
+    });
   });
 
   suite('#init', function() {
@@ -171,4 +177,52 @@ suite('View', function() {
       });
     });
   });
+
+  suite('Pre/Post events', function() {
+    test('pre-event fires', function(done) {
+      Fidel.onPreInit(function() {
+        assert.equal(this.initWasCalled, undefined);
+        done();
+      });
+      var view = new Fidel(el, {
+        init: function() {
+          this.initWasCalled = true;
+        }
+      });
+    });
+
+    test('post-event fires', function(done) {
+      Fidel.onPostInit(function() {
+        assert.equal(this.initWasCalled, true);
+        done();
+      });
+      var view = new Fidel(el, {
+        init: function() {
+          this.initWasCalled = true;
+        }
+      });
+    });
+  });
+
+  suite('Multiple instances', function() {
+    test('multiple instances don\'t conflict', function() {
+
+      var view2 = new View(el, {
+        debug: false,
+        test: 456
+      });
+
+      assert.isTrue(view.options.debug);
+      assert.isTrue(view.options.enabled);
+      assert.equal(view.options.test, 123);
+
+      assert.isFalse(view2.options.debug);
+      assert.isTrue(view2.options.enabled);
+      assert.equal(view2.options.test, 456);
+      
+    });
+    
+  });
+  
+  
 });

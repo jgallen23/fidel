@@ -8,7 +8,7 @@
 
 (function(w, $) {
 
-var View = function(el, obj, options) {
+var Fidel = function(el, obj, options) {
   $.extend(this, obj);
   this.el = el;
   this.els = {};
@@ -23,15 +23,15 @@ var View = function(el, obj, options) {
   }
   $('body').trigger('FidelPostInit', this);
 };
-View.prototype.eventSplitter = /^(\w+)\s*(.*)$/;
-View.prototype.find = function(selector) {
+Fidel.prototype.eventSplitter = /^(\w+)\s*(.*)$/;
+Fidel.prototype.find = function(selector) {
   return this.el.find(selector);
 };
-View.prototype.proxy = function(func) {
+Fidel.prototype.proxy = function(func) {
   return $.proxy(func, this);
 };
 
-View.prototype.getElements = function() {
+Fidel.prototype.getElements = function() {
   if (!this.elements)
     return;
 
@@ -41,7 +41,7 @@ View.prototype.getElements = function() {
   }
 };
 
-View.prototype.delegateEvents = function() {
+Fidel.prototype.delegateEvents = function() {
   var self = this;
   if (!this.events)
     return;
@@ -64,7 +64,7 @@ View.prototype.delegateEvents = function() {
   }
 };
 
-View.prototype.delegateActions = function() {
+Fidel.prototype.delegateActions = function() {
   var self = this;
   self.el.on('click', '[data-action]', function(e) {
     var el = $(this);
@@ -75,14 +75,14 @@ View.prototype.delegateActions = function() {
   });
 };
 
-View.prototype.on = function(eventName, cb) {
+Fidel.prototype.on = function(eventName, cb) {
   this.el.on(eventName, cb);
 };
 
-View.prototype.emit = function(eventName, data) {
+Fidel.prototype.emit = function(eventName, data) {
   this.el.trigger(eventName, data);
 };
-View.prototype.hide = function() {
+Fidel.prototype.hide = function() {
   if (this.views) {
     for (var key in this.views) {
       this.views[key].hide();
@@ -90,7 +90,7 @@ View.prototype.hide = function() {
   }
   this.el.hide();
 };
-View.prototype.show = function() {
+Fidel.prototype.show = function() {
   if (this.views) {
     for (var key in this.views) {
       this.views[key].show();
@@ -99,19 +99,25 @@ View.prototype.show = function() {
   this.el.show();
 };
 
+Fidel.declare = function(obj) {
+  return function(el, options) {
+    return new Fidel(el, obj, options);
+  }
+};
+
 //for plugins
-View.onPreInit = function(fn) {
+Fidel.onPreInit = function(fn) {
   $('body').on('FidelPreInit', function(e, obj) {
     fn.call(obj);
   });
 };
-View.onPostInit = function(fn) {
+Fidel.onPostInit = function(fn) {
   $('body').on('FidelPostInit', function(e, obj) {
     fn.call(obj);
   });
 };
 
-$.fidel = function(name, obj) {
+$.declare = function(name, obj) {
 
   $.fn[name] = function() {
     var args = Array.prototype.slice.call(arguments);
@@ -123,7 +129,7 @@ $.fidel = function(name, obj) {
       var data = $this.data(name);
 
       if (!data) {
-        data = new View($this, obj, options);
+        data = new Fidel($this, obj, options);
         $this.data(name, data); 
       }
       if (typeof options === 'string') {
@@ -136,7 +142,7 @@ $.fidel = function(name, obj) {
 
 };
 
-$.fidel.View = View;
+$.Fidel = Fidel;
 
-w.Fidel = View;
+w.Fidel = Fidel;
 })(window, window.jQuery || window.Zepto);
