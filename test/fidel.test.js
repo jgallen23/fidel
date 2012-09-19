@@ -40,6 +40,12 @@ suite('Fidel', function() {
     test('doesn\'t mess with original viewObj', function() {
       assert.isFalse(viewObj.defaults.debug);
     });
+
+    test('each instance gets a unique id', function() {
+      assert.ok(view.id);
+      var view2 = new View(el);
+      assert.notEqual(view.id, view2.id);
+    });
   });
 
   suite('#find', function() {
