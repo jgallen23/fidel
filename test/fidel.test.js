@@ -131,7 +131,7 @@ suite('Fidel', function() {
       view.el.trigger('testOnEvent');
     });
 
-    test('namespace events', function(done) {
+    test('namespace events', function() {
       var check = false;
 
       var view2 = new View(el);
@@ -144,10 +144,7 @@ suite('Fidel', function() {
 
       view.emit('testOnEvent');
 
-      setTimeout(function() {
-        assert.equal(check, false);
-        done();
-      }, 10);
+      assert.equal(check, false);
       
     });
 
@@ -205,6 +202,28 @@ suite('Fidel', function() {
     });
   });
 
+  suite('#destroy', function() {
+
+    test('destroy event', function() {
+      var check = false;
+      view.on('destroy', function() {
+        check = true;
+      });
+      view.destroy();
+      assert.equal(check, true);
+    });
+
+    test('unbind events', function() {
+      var check = false;
+      view.on('testOnEvent', function() {
+        check = true;
+      });
+      view.destroy();
+      el.trigger('testOnEvent');
+      assert.equal(check, false);
+    });
+    
+  });
   
   suite('Pre/Post events', function() {
     test('pre-event fires', function(done) {
