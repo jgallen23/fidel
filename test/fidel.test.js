@@ -5,6 +5,7 @@ suite('Fidel', function() {
   var view;
   var el = $('#fixture');
 
+
   setup(function() {
     //viewObj from fixture.js
     View = Fidel.declare(viewObj);
@@ -45,6 +46,13 @@ suite('Fidel', function() {
       assert.ok(view.id);
       var view2 = new View(el);
       assert.notEqual(view.id, view2.id);
+    });
+
+    test('instanceof', function() {
+
+      assert.isTrue(view instanceof Fidel);
+      assert.isTrue(view instanceof View);
+      
     });
   });
 
@@ -231,11 +239,12 @@ suite('Fidel', function() {
         assert.equal(this.initWasCalled, undefined);
         done();
       });
-      var view = new Fidel(el, {
+      var Tmp = Fidel.declare({
         init: function() {
           this.initWasCalled = true;
         }
       });
+      var v = new Tmp(el);
     });
 
     test('post-event fires', function(done) {
@@ -243,11 +252,12 @@ suite('Fidel', function() {
         assert.equal(this.initWasCalled, true);
         done();
       });
-      var view = new Fidel(el, {
+      var Tmp = Fidel.declare({
         init: function() {
           this.initWasCalled = true;
         }
       });
+      var v = new Tmp(el);
     });
   });
 
