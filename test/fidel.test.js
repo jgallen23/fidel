@@ -130,12 +130,33 @@ suite('Fidel', function() {
       });
       view.el.trigger('testOnEvent');
     });
+
+    test('namespace events', function(done) {
+      var check = false;
+
+      var view2 = new View(el);
+      view.on('testOnEvent', function() {
+      });
+
+      view2.on('testOnEvent', function() {
+        check = true;
+      });
+
+      view.emit('testOnEvent');
+
+      setTimeout(function() {
+        assert.equal(check, false);
+        done();
+      }, 10);
+      
+    });
+
   });
 
   suite('#emit', function() {
     test('calls trigger on this.el', function(done) {
 
-      view.el.on('testEmitEvent', function(e) {
+      view.on('testEmitEvent', function(e) {
         assert.ok(e);
         done();
       });
@@ -184,6 +205,7 @@ suite('Fidel', function() {
     });
   });
 
+  
   suite('Pre/Post events', function() {
     test('pre-event fires', function(done) {
       Fidel.onPreInit(function() {
