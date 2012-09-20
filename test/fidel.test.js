@@ -156,7 +156,30 @@ suite('Fidel', function() {
       
     });
 
+    test('call every time triggered', function() {
+      var count = 0;
+      view.on('testOnEvent', function() {
+        count++;
+      });
+      view.el.trigger('testOnEvent');
+      view.el.trigger('testOnEvent');
+      assert.equal(count, 2);
+    });
+
   });
+
+  suite('#one', function() {
+    test('bind and then remove', function() {
+      var count = 0;
+      view.one('testOnEvent', function() {
+        count++;
+      });
+      view.el.trigger('testOnEvent');
+      view.el.trigger('testOnEvent');
+      assert.equal(count, 1);
+    });
+  });
+  
 
   suite('#emit', function() {
     test('calls trigger on this.el', function(done) {
