@@ -9,7 +9,8 @@ suite('Fidel', function() {
   setup(function() {
     //viewObj from fixture.js
     View = Fidel.declare(viewObj);
-    view = new View(el, {
+    view = new View({
+      el: el,
       debug: true,
       test: 123
     });
@@ -32,10 +33,9 @@ suite('Fidel', function() {
     });
 
     test('options get extended', function() {
-      assert.ok(view.options);
-      assert.isTrue(view.options.debug);
-      assert.isTrue(view.options.enabled);
-      assert.equal(view.options.test, 123);
+      assert.isTrue(view.debug);
+      assert.isTrue(view.enabled);
+      assert.equal(view.test, 123);
     });
 
     test('doesn\'t mess with original viewObj', function() {
@@ -267,7 +267,7 @@ suite('Fidel', function() {
           this.initWasCalled = true;
         }
       });
-      var v = new Tmp(el);
+      var v = new Tmp({ el: el });
     });
 
     test('post-event fires', function(done) {
@@ -280,25 +280,26 @@ suite('Fidel', function() {
           this.initWasCalled = true;
         }
       });
-      var v = new Tmp(el);
+      var v = new Tmp({ el: el });
     });
   });
 
   suite('Multiple instances', function() {
     test('multiple instances don\'t conflict', function() {
 
-      var view2 = new View(el, {
+      var view2 = new View({
+        el: el,
         debug: false,
         test: 456
       });
 
-      assert.isTrue(view.options.debug);
-      assert.isTrue(view.options.enabled);
-      assert.equal(view.options.test, 123);
+      assert.isTrue(view.debug);
+      assert.isTrue(view.enabled);
+      assert.equal(view.test, 123);
 
-      assert.isFalse(view2.options.debug);
-      assert.isTrue(view2.options.enabled);
-      assert.equal(view2.options.test, 456);
+      assert.isFalse(view2.debug);
+      assert.isTrue(view2.enabled);
+      assert.equal(view2.test, 456);
       
     });
     
