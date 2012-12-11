@@ -9,11 +9,6 @@
   <script src="../node_modules/chai/chai.js"></script>
   <script src="../node_modules/mocha/mocha.js"></script>
   <script>mocha.setup('tdd')</script>
-  <script>
-    $(function () {
-      mocha.run()
-    })
-  </script>
 </head>
 <body>
   <div id="mocha"></div>
@@ -33,5 +28,8 @@
   <script src="../dist/fidel.js"></script>
   <script src="fidel.test.js"></script>
   <script src="jquery.test.js"></script>
+  <script>
+    mocha.run()
+  </script>
 </body>
 </html>
