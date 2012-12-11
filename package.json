@@ -4,15 +4,23 @@
   "version": "1.2.3",
   "homepage": "https://github.com/jgallen23/fidel",
   "author": "Greg Allen <@jgaui> (http://jga.me)",
+  "copyright": "JGA",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/jgallen23/fidel.git"
   },
   "main": "./dist/fidel.js",
-  "keywords": ["view", "controller", "mvc"],
+  "keywords": [
+    "view",
+    "controller",
+    "mvc"
+  ],
   "devDependencies": {
     "mocha": "*",
     "chai": "*",
-    "smoosh": "*"
+    "smoosh": "*",
+    "grunt": "~0.3.17",
+    "grunt-mocha": "~0.1.7"
   }
 }
