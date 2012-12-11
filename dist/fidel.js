@@ -1,32 +1,44 @@
 /*!
-  * Fidel - A javascript view controller
-  * v2.0.0
-  * https://github.com/jgallen23/fidel
-  * copyright JGA 2012
-  * MIT License
-  */
+ * fidel - a ui view controller
+ * v2.0.0
+ * https://github.com/jgallen23/fidel
+ * copyright JGA 2012
+ * MIT License
+*/
 
 (function(w, $) {
 
-var Fidel = function(el, obj, options) {
-  $.extend(this, obj);
-  this.el = el;
+var _id = 0;
+var Fidel = function(obj) {
+  this.obj = obj;
+};
+
+Fidel.prototype.__init = function(options) {
+  $.extend(this, this.obj);
+  this.id = _id++;
   this.els = {};
-  obj.defaults = obj.defaults || {};
-  this.options = $.extend({}, obj.defaults, options);
+  this.obj.defaults = this.obj.defaults || {};
+  $.extend(this, this.obj.defaults, options);
   $('body').trigger('FidelPreInit', this);
-  this.getElements();
-  this.delegateEvents();
-  this.delegateActions();
+  this.setElement(this.el || $('<div/>'));
   if (this.init) {
     this.init();
   }
   $('body').trigger('FidelPostInit', this);
 };
 Fidel.prototype.eventSplitter = /^(\w+)\s*(.*)$/;
+
+Fidel.prototype.setElement = function(el) {
+  this.el = el;
+  this.getElements();
+  this.delegateEvents();
+  this.delegateActions();
+};
+
 Fidel.prototype.find = function(selector) {
   return this.el.find(selector);
 };
+
 Fidel.prototype.proxy = function(func) {
   return $.proxy(func, this);
 };
@@ -76,11 +88,15 @@ Fidel.prototype.delegateActions = function() {
 };
 
 Fidel.prototype.on = function(eventName, cb) {
-  this.el.on(eventName, cb);
+  this.el.on(eventName+'.fidel'+this.id, cb);
+};
+
+Fidel.prototype.one = function(eventName, cb) {
+  this.el.one(eventName+'.fidel'+this.id, cb);
 };
 
 Fidel.prototype.emit = function(eventName, data) {
-  this.el.trigger(eventName, data);
+  this.el.trigger(eventName+'.fidel'+this.id, data);
 };
 Fidel.prototype.hide = function() {
   if (this.views) {
@@ -99,10 +115,18 @@ Fidel.prototype.show = function() {
   this.el.show();
 };
 
+Fidel.prototype.destroy = function() {
+  this.el.empty();
+  this.emit('destroy');
+  this.el.unbind('.fidel'+this.id);
+};
+
 Fidel.declare = function(obj) {
-  return function(el, options) {
-    return new Fidel(el, obj, options);
-  }
+  var FidelModule = function(el, options) {
+    this.__init(el, options);
+  };
+  FidelModule.prototype = new Fidel(obj);
+  return FidelModule;
 };
 
 //for plugins
@@ -129,7 +153,9 @@ $.declare = function(name, obj) {
       var data = $this.data(name);
 
       if (!data) {
-        data = new Fidel($this, obj, options);
+        var View = Fidel.declare(obj);
+        var opts = $.extend({}, options, { el: $this });
+        data = new View(opts);
         $this.data(name, data); 
       }
       if (typeof options === 'string') {
