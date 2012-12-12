@@ -16,6 +16,12 @@ suite('Fidel', function() {
     });
   });
 
+  teardown(function() {
+    el.off();
+    $('body').off('FidelPreInit');
+    $('body').off('FidelPostInit');
+  });
+
   suite('#init', function() {
 
 
@@ -44,7 +50,7 @@ suite('Fidel', function() {
 
     test('each instance gets a unique id', function() {
       assert.ok(view.id);
-      var view2 = new View(el);
+      var view2 = new View({ el: el });
       assert.notEqual(view.id, view2.id);
     });
 
@@ -72,7 +78,7 @@ suite('Fidel', function() {
       assert.equal(view.els.name.text(), 'Bob');
 
       assert.equal(view.els.submitButton[0].tagName, 'BUTTON');
-    })
+    });
   });
 
   suite('#events', function() {
@@ -142,7 +148,7 @@ suite('Fidel', function() {
     test('namespace events', function() {
       var check = false;
 
-      var view2 = new View(el);
+      var view2 = new View({ el: el });
       view.on('testOnEvent', function() {
       });
 
@@ -150,7 +156,7 @@ suite('Fidel', function() {
         check = true;
       });
 
-      view.emit('testOnEvent');
+      view.emit('testOnEvent', null, true);
 
       assert.equal(check, false);
       
@@ -207,6 +213,23 @@ suite('Fidel', function() {
         done();
       });
       view.emit('testDataEvent', 456);
+    });
+
+    test('third param limits to current instance', function() {
+      var check = 0;
+
+      var view2 = new View({ el: el });
+      view.on('testOnEvent', function() {
+        check++;
+      });
+
+      view2.on('testOnEvent', function() {
+        check++;
+      });
+
+      view.emit('testOnEvent', null, true);
+      view2.emit('testOnEvent', null, true);
+      assert.equal(check, 2);
     });
 
   });
