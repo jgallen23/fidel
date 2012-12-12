@@ -15,7 +15,8 @@ module.exports = function(grunt) {
         'lib/fidel.js',
         'lib/jquery.js',
         'grunt.js',
-        'component.json'
+        'component.json',
+        'test/*.js'
       ]
     },
     concat: {
