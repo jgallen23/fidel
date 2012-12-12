@@ -1,6 +1,6 @@
 /*!
  * fidel - a ui view controller
- * v2.0.1
+ * v2.0.2
  * https://github.com/jgallen23/fidel
  * copyright JGA 2012
  * MIT License
@@ -95,9 +95,11 @@ Fidel.prototype.one = function(eventName, cb) {
   this.el.one(eventName+'.fidel'+this.id, cb);
 };
 
-Fidel.prototype.emit = function(eventName, data) {
-  this.el.trigger(eventName+'.fidel'+this.id, data);
+Fidel.prototype.emit = function(eventName, data, namespaced) {
+  var ns = (namespaced) ? '.fidel'+this.id : '';
+  this.el.trigger(eventName+ns, data);
 };
+
 Fidel.prototype.hide = function() {
   if (this.views) {
     for (var key in this.views) {

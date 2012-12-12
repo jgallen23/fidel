@@ -1,4 +1,11 @@
 
+2.0.2 / 2012-12-11 
+==================
+
+  * fix[emit] added third param for namespacing events
+  * [tests] added more jquery tests
+  * fix[lint] lint tests
+
 2.0.1 / 2012-12-11 
 ==================
 
