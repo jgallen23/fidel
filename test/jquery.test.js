@@ -5,6 +5,10 @@ suite('jQuery', function() {
     $.declare('fidelPlugin', viewObj);
   });
 
+  teardown(function() {
+    $('#fixture').off();
+  });
+
   test('$.declare will be a function', function() {
     assert.isFunction($.declare);
   });
@@ -64,6 +68,33 @@ suite('jQuery', function() {
     assert.equal(instance.methodArg, 123);
     assert.equal(instance.methodThis, instance);
   });
- 
+
+  test('$().on("eventName") will get called on view.emit("eventName")', function(done) {
+
+    var el = $('#fixture');
+    el.fidelPlugin();
+    var instance = el.data('fidelPlugin');
+
+    el.on('testEvent', function() {
+      done();
+    });
+
+    instance.emit('testEvent');
+  });
+
+
+  test('$().trigger("eventName") will get call on view.on("eventName")', function(done) {
+
+    var el = $('#fixture');
+    el.fidelPlugin();
+    var instance = el.data('fidelPlugin');
+
+    instance.on('testEvent2', function() {
+      done();
+    });
+
+    el.trigger('testEvent2');
+  });
+
 
 });
