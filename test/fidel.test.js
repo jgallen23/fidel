@@ -81,6 +81,19 @@ suite('Fidel', function() {
     });
   });
 
+  suite('#data-elements', function() {
+
+    test('data-elements inside controller will automatically get selected and added to object', function() {
+
+      assert.ok(view.lastName);
+      assert.equal(view.lastName.length, 1);
+      assert.equal(view.lastName.text(), 'Smith');
+      assert.equal(view.lastName[0].tagName, 'SPAN');
+      
+    });
+
+  });
+
   suite('#events', function() {
 
     test('auto bind events with selectors', function() {

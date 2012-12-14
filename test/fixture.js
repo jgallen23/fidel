@@ -5,7 +5,7 @@ var viewObj = {
     test: 123
   },
   elements: {
-    'span': 'name',
+    '.name': 'name',
     'button.submit': 'submitButton'
   },
   events: {
