@@ -69,15 +69,15 @@ suite('Fidel', function() {
     });
   });
 
-  suite('#els', function() {
+  suite('#elements', function() {
 
     test('query elements and set them in els property', function() {
 
-      assert.ok(view.els.name);
-      assert.equal(view.els.name.length, 1);
-      assert.equal(view.els.name.text(), 'Bob');
+      assert.ok(view.name);
+      assert.equal(view.name.length, 1);
+      assert.equal(view.name.text(), 'Bob');
 
-      assert.equal(view.els.submitButton[0].tagName, 'BUTTON');
+      assert.equal(view.submitButton[0].tagName, 'BUTTON');
     });
   });
 
@@ -86,7 +86,7 @@ suite('Fidel', function() {
     test('auto bind events with selectors', function() {
 
       assert.isUndefined(view.buttonClickedEvent);
-      view.els.submitButton.click();
+      view.submitButton.click();
 
       assert.ok(view.buttonClickedEvent);
       assert.equal(view.buttonClickCount, 1);
@@ -107,7 +107,7 @@ suite('Fidel', function() {
     test('auto bind events with element names', function() {
 
       assert.isUndefined(view.nameClickEvent);
-      view.els.name.click();
+      view.name.click();
 
       assert.ok(view.nameClickEvent);
       assert.equal(view.buttonClickCount, 0);
