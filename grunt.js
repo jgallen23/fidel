@@ -43,6 +43,12 @@ module.exports = function(grunt) {
         run: true
       }
     },
+    reloadr: {
+      all: [
+        'dist/fidel.js',
+        'test/**/*'
+      ]
+    },
     watch: {
       js: {
         files: '<config:lint.all>',
@@ -55,6 +61,7 @@ module.exports = function(grunt) {
     }
   });
   grunt.loadNpmTasks('grunt-mocha');
+  grunt.loadNpmTasks('grunt-reloadr');
   grunt.registerTask('default', 'lint concat min mocha');
-  grunt.registerTask('dev', 'server watch');
+  grunt.registerTask('dev', 'server reloadr watch');
 };
