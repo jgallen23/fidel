@@ -1,4 +1,11 @@
 
+2.1.0 / 2012-12-14 
+==================
+
+  * feature[data-elements] data-element="name" now auto turn into this.name
+  * refactor[elements] removed els, elements get added to root obj
+  * added grunt-reloadr
+
 2.0.3 / 2012-12-12 
 ==================
 

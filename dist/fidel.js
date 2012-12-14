@@ -1,6 +1,6 @@
 /*!
  * fidel - a ui view controller
- * v2.0.2
+ * v2.1.0
  * https://github.com/jgallen23/fidel
  * copyright JGA 2012
  * MIT License
@@ -16,7 +16,6 @@ var Fidel = function(obj) {
 Fidel.prototype.__init = function(options) {
   $.extend(this, this.obj);
   this.id = _id++;
-  this.els = {};
   this.obj.defaults = this.obj.defaults || {};
   $.extend(this, this.obj.defaults, options);
   $('body').trigger('FidelPreInit', this);
@@ -32,6 +31,7 @@ Fidel.prototype.setElement = function(el) {
   this.el = el;
   this.getElements();
   this.delegateEvents();
+  this.dataElements();
   this.delegateActions();
 };
 
@@ -49,8 +49,17 @@ Fidel.prototype.getElements = function() {
 
   for (var selector in this.elements) {
     var elemName = this.elements[selector];
-    this.els[elemName] = this.find(selector);
+    this[elemName] = this.find(selector);
   }
+};
+
+Fidel.prototype.dataElements = function() {
+  var self = this;
+  this.find('[data-element]').each(function(index, item) {
+    var el = $(item);
+    var name = el.data('element');
+    self[name] = el;
+  });
 };
 
 Fidel.prototype.delegateEvents = function() {
@@ -67,8 +76,8 @@ Fidel.prototype.delegateEvents = function() {
     if (selector === '') {
       this.el.on(eventName, method);
     } else {
-      if (this.els[selector]) {
-        this.els[selector].on(eventName, method);
+      if (this[selector] && typeof this[selector] != 'function') {
+        this[selector].on(eventName, method);
       } else {
         this.el.on(eventName, selector, method);
       }
