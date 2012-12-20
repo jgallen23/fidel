@@ -1,6 +1,6 @@
 /*!
  * fidel - a ui view controller
- * v2.1.0
+ * v2.2.0
  * https://github.com/jgallen23/fidel
  * copyright JGA 2012
  * MIT License
@@ -157,8 +157,10 @@ $.declare = function(name, obj) {
   $.fn[name] = function() {
     var args = Array.prototype.slice.call(arguments);
     var options = args.shift();
+    var methodValue;
+    var els;
 
-    return this.each(function() {
+    els = this.each(function() {
       var $this = $(this);
 
       var data = $this.data(name);
@@ -170,9 +172,11 @@ $.declare = function(name, obj) {
         $this.data(name, data); 
       }
       if (typeof options === 'string') {
-        data[options].apply(data, args);
+        methodValue = data[options].apply(data, args);
       }
     });
+
+    return methodValue || els;
   };
 
   $.fn[name].defaults = obj.defaults || {};

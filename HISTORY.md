@@ -1,4 +1,10 @@
 
+2.2.0 / 2012-12-20 
+==================
+
+  * [jquery] $().plugin('method') can now return a value
+  * [grunt] updated reloadr
+
 2.1.0 / 2012-12-14 
 ==================
 
