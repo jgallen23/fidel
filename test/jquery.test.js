@@ -48,14 +48,28 @@ suite('jQuery', function() {
 
     assert.isUndefined(instance.methodWasCalled);
 
-    el.fidelPlugin('method');
+    var ret = el.fidelPlugin('method');
 
+    assert.equal(ret, el);
     assert.ok(instance.methodWasCalled);
 
   });
 
+  test('$().plugin("method") will return value if return is not undefined', function() {
+
+    var el = $('#fixture');
+    el.fidelPlugin();
+    var instance = el.data('fidelPlugin');
+
+    var val = el.fidelPlugin('methodWithReturn');
+
+    assert.equal(val, 1);
+
+  });
+
+
   test('$().plugin("method", arg1, arg2) will pass through to method', function() {
-    
+
     var el = $('#fixture');
     el.fidelPlugin();
     var instance = el.data('fidelPlugin');

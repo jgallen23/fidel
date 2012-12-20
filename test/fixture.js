@@ -43,5 +43,8 @@ var viewObj = {
   actionClicked: function(e) {
     this.actionClickEvent = e;
     this.actionClickCount++;
+  },
+  methodWithReturn: function() {
+    return 1;
   }
 };
