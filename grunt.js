@@ -62,6 +62,6 @@ module.exports = function(grunt) {
   });
   grunt.loadNpmTasks('grunt-mocha');
   grunt.loadNpmTasks('grunt-reloadr');
-  grunt.registerTask('default', 'lint concat min mocha');
+  grunt.registerTask('default', 'lint concat min');
   grunt.registerTask('dev', 'server reloadr watch');
 };
