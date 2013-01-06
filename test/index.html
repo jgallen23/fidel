@@ -7,6 +7,7 @@
   <script src="../components/jquery/jquery.js"></script>
   <script src="../node_modules/chai/chai.js"></script>
   <script src="../node_modules/mocha/mocha.js"></script>
+  <script src="../support/blanket.min.js" data-cover-adapter="../support/mocha-blanket.js"></script>
   <script>mocha.setup('tdd')</script>
 </head>
 <body>
@@ -27,10 +28,10 @@
   <!--<script src="../lib/fidel.js"></script>-->
   <!--<script src="../lib/jquery.js"></script>-->
   <script src="../dist/fidel.js"></script>
-  <script src="fidel.test.js"></script>
-  <script src="jquery.test.js"></script>
+  <script src="fidel.test.js" data-cover></script>
+  <script src="jquery.test.js" data-cover></script>
   <script>
-    mocha.run().globals(['LiveReload']);
+    mocha.run();//.globals(['LiveReload']);
   </script>
 </body>
 </html>
