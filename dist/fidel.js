@@ -1,8 +1,8 @@
 /*!
  * fidel - a ui view controller
- * v2.2.0
+ * v2.2.1
  * https://github.com/jgallen23/fidel
- * copyright JGA 2012
+ * copyright JGA 2013
  * MIT License
 */
 
@@ -152,38 +152,40 @@ Fidel.onPostInit = function(fn) {
   });
 };
 
-$.declare = function(name, obj) {
+(function($) {
+  $.declare = function(name, obj) {
 
-  $.fn[name] = function() {
-    var args = Array.prototype.slice.call(arguments);
-    var options = args.shift();
-    var methodValue;
-    var els;
+    $.fn[name] = function() {
+      var args = Array.prototype.slice.call(arguments);
+      var options = args.shift();
+      var methodValue;
+      var els;
 
-    els = this.each(function() {
-      var $this = $(this);
+      els = this.each(function() {
+        var $this = $(this);
 
-      var data = $this.data(name);
+        var data = $this.data(name);
 
-      if (!data) {
-        var View = Fidel.declare(obj);
-        var opts = $.extend({}, options, { el: $this });
-        data = new View(opts);
-        $this.data(name, data); 
-      }
-      if (typeof options === 'string') {
-        methodValue = data[options].apply(data, args);
-      }
-    });
+        if (!data) {
+          var View = Fidel.declare(obj);
+          var opts = $.extend({}, options, { el: $this });
+          data = new View(opts);
+          $this.data(name, data); 
+        }
+        if (typeof options === 'string') {
+          methodValue = data[options].apply(data, args);
+        }
+      });
 
-    return methodValue || els;
+      return methodValue || els;
+    };
+
+    $.fn[name].defaults = obj.defaults || {};
+
   };
 
-  $.fn[name].defaults = obj.defaults || {};
-
-};
-
-$.Fidel = Fidel;
+  $.Fidel = Fidel;
+})(jQuery);
 
 w.Fidel = Fidel;
 })(window, window.jQuery || window.Zepto);
