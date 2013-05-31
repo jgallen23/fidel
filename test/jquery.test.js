@@ -66,6 +66,27 @@ suite('jQuery', function() {
 
   });
 
+  test('$().plugin("method") will return value if empty array', function() {
+
+    var el = $('#fixture');
+    el.fidelPlugin();
+
+    var val = el.fidelPlugin('methodWithEmptyArrayReturn');
+
+    assert.deepEqual(val, []);
+  });
+
+  test('$().plugin("method") will return value even if return is false', function() {
+
+    var el = $('#fixture');
+    el.fidelPlugin();
+
+    var val = el.fidelPlugin('methodReturnsFalse');
+
+    assert.equal(typeof val, 'boolean');
+    assert.equal(val, false);
+  });
+
 
   test('$().plugin("method", arg1, arg2) will pass through to method', function() {
 

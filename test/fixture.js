@@ -46,5 +46,11 @@ var viewObj = {
   },
   methodWithReturn: function() {
     return 1;
+  },
+  methodWithEmptyArrayReturn: function() {
+    return [];
+  },
+  methodReturnsFalse: function() {
+    return false;
   }
 };
