@@ -308,6 +308,7 @@ suite('Fidel', function() {
 
     test('post-event fires', function(done) {
       Fidel.onPostInit(function() {
+        assert.equal(this.el, el);
         assert.equal(this.initWasCalled, true);
         done();
       });
