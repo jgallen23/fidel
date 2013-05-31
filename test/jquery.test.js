@@ -1,4 +1,3 @@
-var assert = chai.assert;
 suite('jQuery', function() {
 
   setup(function() {
@@ -10,16 +9,16 @@ suite('jQuery', function() {
   });
 
   test('$.declare will be a function', function() {
-    assert.isFunction($.declare);
+    assert.equal(typeof $.declare, 'function');
   });
 
   test('$.Fidel == Fidel class', function() {
-    assert.isFunction($.Fidel);
+    assert.equal(typeof $.Fidel, 'function');
   });
 
   test('$.declare() will create plugin', function() {
-    assert.isFunction($.fn.fidelPlugin);
-    assert.isFunction($('#fixture').fidelPlugin);
+    assert.equal(typeof $.fn.fidelPlugin, 'function');
+    assert.equal(typeof $('#fixture').fidelPlugin, 'function');
   });
 
   test('$.fn.plugin.defaults will map to View.defaults', function() {
@@ -30,7 +29,7 @@ suite('jQuery', function() {
     var el = $('#fixture');
     el.fidelPlugin();
     assert.ok(el.data('fidelPlugin'));
-    assert.instanceOf(el.data('fidelPlugin'), $.Fidel);
+    assert.equal(el.data('fidelPlugin') instanceof $.Fidel, true);
   });
 
   test('$().plugin() will call init', function() {
@@ -46,7 +45,7 @@ suite('jQuery', function() {
     el.fidelPlugin();
     var instance = el.data('fidelPlugin');
 
-    assert.isUndefined(instance.methodWasCalled);
+    assert.equal(typeof instance.methodWasCalled, 'undefined');
 
     var ret = el.fidelPlugin('method');
 
@@ -74,7 +73,7 @@ suite('jQuery', function() {
     el.fidelPlugin();
     var instance = el.data('fidelPlugin');
 
-    assert.isUndefined(instance.methodWithArgsWasCalled);
+    assert.equal(typeof instance.methodWithArgsWasCalled, 'undefined');
 
     el.fidelPlugin('methodWithArgs', 123);
 

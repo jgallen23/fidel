@@ -1,4 +1,3 @@
-var assert = chai.assert;
 suite('Fidel', function() {
 
   var View;
@@ -34,18 +33,18 @@ suite('Fidel', function() {
     });
 
     test('viewObj functions set as methods', function() {
-      assert.ok(view.method);
-      assert.isUndefined(view.fakeMethod);
+      assert.equal(typeof view.method, 'function');
+      assert.equal(typeof view.fakeMethod, 'undefined');
     });
 
     test('options get extended', function() {
-      assert.isTrue(view.debug);
-      assert.isTrue(view.enabled);
+      assert.equal(view.debug, true);
+      assert.equal(view.enabled, true);
       assert.equal(view.test, 123);
     });
 
     test('doesn\'t mess with original viewObj', function() {
-      assert.isFalse(viewObj.defaults.debug);
+      assert.equal(viewObj.defaults.debug, false);
     });
 
     test('each instance gets a unique id', function() {
@@ -56,8 +55,8 @@ suite('Fidel', function() {
 
     test('instanceof', function() {
 
-      assert.isTrue(view instanceof Fidel);
-      assert.isTrue(view instanceof View);
+      assert.equal(view instanceof Fidel, true);
+      assert.equal(view instanceof View, true);
       
     });
   });
@@ -98,7 +97,7 @@ suite('Fidel', function() {
 
     test('auto bind events with selectors', function() {
 
-      assert.isUndefined(view.buttonClickedEvent);
+      assert.equal(typeof view.buttonClickedEvent, 'undefined');
       view.submitButton.click();
 
       assert.ok(view.buttonClickedEvent);
@@ -109,7 +108,7 @@ suite('Fidel', function() {
 
     test('if no selector, bind to this.el', function() {
 
-      assert.isUndefined(view.viewClickedEvent);
+      assert.equal(typeof view.viewClickedEvent, 'undefined');
       view.el.click();
       assert.ok(view.viewClickedEvent);
       assert.equal(view.buttonClickCount, 0);
@@ -119,7 +118,7 @@ suite('Fidel', function() {
 
     test('auto bind events with element names', function() {
 
-      assert.isUndefined(view.nameClickEvent);
+      assert.equal(typeof view.nameClickEvent, 'undefined');
       view.name.click();
 
       assert.ok(view.nameClickEvent);
@@ -135,7 +134,7 @@ suite('Fidel', function() {
 
     test('auto bind all data-action to the corresponding method name', function() {
 
-      assert.isUndefined(view.actionClickEvent);
+      assert.equal(typeof view.actionClickEvent, 'undefined');
       var actions = view.find('[data-action]');
       actions.click();
 
@@ -330,12 +329,12 @@ suite('Fidel', function() {
         test: 456
       });
 
-      assert.isTrue(view.debug);
-      assert.isTrue(view.enabled);
+      assert.equal(view.debug, true);
+      assert.equal(view.enabled, true);
       assert.equal(view.test, 123);
 
-      assert.isFalse(view2.debug);
-      assert.isTrue(view2.enabled);
+      assert.equal(view2.debug, false);
+      assert.equal(view2.enabled, true);
       assert.equal(view2.test, 456);
       
     });

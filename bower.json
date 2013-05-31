@@ -1,0 +1,15 @@
+{
+  "name": "fidel",
+  "description": "a ui view controller",
+  "version": "2.2.1",
+  "homepage": "https://github.com/jgallen23/fidel",
+  "license": "MIT",
+  "copyright": "Greg Allen",
+  "main": "dist/fidel.js",
+  "dependencies": {
+    "jquery": "1.9.*"
+  },
+  "devDependencies": {
+    "assert": "*"
+  }
+}
