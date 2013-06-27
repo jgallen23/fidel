@@ -1,4 +1,12 @@
 
+2.2.2 / 2013-06-27 
+==================
+
+  * updated build
+  * [lib/jquery] type check return value from function
+  * [grunt|bower] refactored to use grunt 0.4 and bower.json
+  * [tests] added additional condition
+
 2.2.1 / 2013-02-24 
 ==================
 
