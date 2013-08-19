@@ -7,7 +7,7 @@
   "copyright": "Greg Allen",
   "main": "dist/fidel.js",
   "dependencies": {
-    "jquery": "1.9.*"
+    "jquery": "1.*"
   },
   "devDependencies": {
     "assert": "*"
