@@ -1,6 +1,6 @@
 /*!
  * fidel - a ui view controller
- * v2.2.2
+ * v2.2.3
  * https://github.com/jgallen23/fidel
  * copyright Greg Allen 2013
  * MIT License
