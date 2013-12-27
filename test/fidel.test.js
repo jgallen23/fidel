@@ -280,13 +280,10 @@ suite('Fidel', function() {
     });
 
     test('unbind events', function() {
-      var check = false;
-      view.on('testOnEvent', function() {
-        check = true;
-      });
+      view.on('testOnEvent', $.noop);
       view.destroy();
-      el.trigger('testOnEvent');
-      assert.equal(check, false);
+      var events = $._data(el[0],'events');
+      assert.ok(events === undefined || events === null);
     });
     
   });
