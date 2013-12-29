@@ -1,4 +1,9 @@
 
+2.2.4 / 2013-12-29 
+==================
+
+  * Making sure all event listeners are removed on destroy
+
 2.2.3 / 2013-08-19 
 ==================
 
