@@ -1,8 +1,8 @@
 /*!
  * fidel - a ui view controller
- * v2.2.4
+ * v2.2.5
  * https://github.com/jgallen23/fidel
- * copyright Greg Allen 2013
+ * copyright Greg Allen 2014
  * MIT License
 */
 (function(w, $) {
@@ -29,8 +29,8 @@
   Fidel.prototype.setElement = function(el) {
     this.el = el;
     this.getElements();
-    this.delegateEvents();
     this.dataElements();
+    this.delegateEvents();
     this.delegateActions();
   };
 

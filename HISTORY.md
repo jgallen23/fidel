@@ -1,4 +1,10 @@
 
+2.2.5 / 2014-01-03 
+==================
+
+  * fix a bug where dataElements weren't able to auto bind events
+  * updated mocha reporter to spec
+
 2.2.4 / 2013-12-29 
 ==================
 
