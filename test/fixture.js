@@ -11,13 +11,15 @@ var viewObj = {
   events: {
     'click .submit': 'buttonClicked',
     'click': 'viewClicked',
-    'click name': 'nameClicked'
+    'click name': 'nameClicked',
+    'click lastName': 'lastNameClicked'
   },
   init: function() {
     this.initWasCalled = true;
     this.buttonClickCount = 0;
     this.viewClickCount = 0;
     this.nameClickCount = 0;
+    this.lastNameClickCount = 0;
     this.actionClickCount = 0;
   },
   method: function() {
@@ -39,6 +41,9 @@ var viewObj = {
   nameClicked: function(e) {
     this.nameClickEvent = e;
     this.nameClickCount++;
+  },
+  lastNameClicked: function(e) {
+    this.lastNameClickCount++;
   },
   actionClicked: function(e) {
     this.actionClickEvent = e;

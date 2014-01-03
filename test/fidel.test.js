@@ -128,6 +128,14 @@ suite('Fidel', function() {
 
     });
 
+    test('auto bind events with data-element names', function() {
+
+      assert.equal(view.lastNameClickCount, 0);
+      view.lastName.click();
+
+      assert.equal(view.lastNameClickCount, 1);
+    });
+
   });
 
   suite('#actions', function() {
