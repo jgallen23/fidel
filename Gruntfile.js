@@ -57,7 +57,8 @@ module.exports = function(grunt) {
         src: 'test/index.html',
         options: {
           run: true,
-          growl: true
+          growl: true,
+          reporter: 'Spec'
         }
       }
     },
