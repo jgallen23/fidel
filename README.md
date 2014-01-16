@@ -20,7 +20,7 @@ Once that's done, you now can instantiate it with the returned class (`Modal` in
 	
 	// Or init class from views object - JS Style
 	var modal = new fidel.views.modal({ el, options });
-	
+
 If you included the optional `jquery.fidel.js` file, you can even initialize it in the jQuery way:
 
 	//init via jQuery (must include optional jquery.fidel.js file)
