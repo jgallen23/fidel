@@ -7,7 +7,7 @@ suite('Fidel', function() {
 
   setup(function() {
     //viewObj from fixture.js
-    View = Fidel.declare(viewObj);
+    View = fidel.define('test',viewObj);
     view = new View({
       el: el,
       debug: true,
@@ -22,7 +22,9 @@ suite('Fidel', function() {
   });
 
   suite('#init', function() {
-
+    test('view saved into modules', function(){
+      assert.notEqual(typeof fidel.modules.test, 'undefined');
+    });
 
     test('init is called', function() {
       assert.ok(view.initWasCalled);
@@ -54,10 +56,8 @@ suite('Fidel', function() {
     });
 
     test('instanceof', function() {
-
-      assert.equal(view instanceof Fidel, true);
+      //assert.equal(view instanceof Fidel, true);
       assert.equal(view instanceof View, true);
-      
     });
   });
 
