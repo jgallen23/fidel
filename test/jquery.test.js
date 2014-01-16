@@ -1,22 +1,23 @@
 suite('jQuery', function() {
+  var View;
+  var view;
+  var el = $('#fixture');
 
   setup(function() {
-    $.declare('fidelPlugin', viewObj);
+    //viewObj from fixture.js
+    View = fidel.define('fidelPlugin',viewObj);
+    view = new View({
+      el: el,
+      debug: true,
+      test: 123
+    });
   });
 
   teardown(function() {
-    $('#fixture').off();
+    el.off();
   });
 
-  test('$.declare will be a function', function() {
-    assert.equal(typeof $.declare, 'function');
-  });
-
-  test('$.Fidel == Fidel class', function() {
-    assert.equal(typeof $.Fidel, 'function');
-  });
-
-  test('$.declare() will create plugin', function() {
+  test('the plugin name will exist in the jQueryNamespace', function() {
     assert.equal(typeof $.fn.fidelPlugin, 'function');
     assert.equal(typeof $('#fixture').fidelPlugin, 'function');
   });

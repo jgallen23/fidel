@@ -302,7 +302,7 @@ suite('Fidel', function() {
         assert.equal(this.initWasCalled, undefined);
         done();
       });
-      var Tmp = Fidel.declare({
+      var Tmp = fidel.define('test',{
         init: function() {
           this.initWasCalled = true;
         }
@@ -313,10 +313,10 @@ suite('Fidel', function() {
     test('post-event fires', function(done) {
       Fidel.onPostInit(function() {
         assert.equal(this.el, el);
-        assert.equal(this.initWasCalled, true);
+        assert.ok(this.initWasCalled);
         done();
       });
-      var Tmp = Fidel.declare({
+      var Tmp = fidel.define('test',{
         init: function() {
           this.initWasCalled = true;
         }
