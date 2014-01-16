@@ -2,7 +2,7 @@
  * fidel - a ui view controller
  * v2.2.3
  * https://github.com/jgallen23/fidel
- * copyright Greg Allen 2013
+ * copyright Greg Allen 2014
  * MIT License
 */
 (function(w, $) {
@@ -130,14 +130,6 @@
     this.el.unbind('.fidel'+this.id);
   };
 
-  Fidel.declare = function(obj) {
-    var FidelModule = function(el, options) {
-      this.__init(el, options);
-    };
-    FidelModule.prototype = new Fidel(obj);
-    return FidelModule;
-  };
-
   //for plugins
   Fidel.onPreInit = function(fn) {
     $('body').on('FidelPreInit', function(e, obj) {
@@ -149,41 +141,63 @@
       fn.call(obj);
     });
   };
-  w.Fidel = Fidel;
+
+  // Public API
+  w.fidel = w.fidel || {};
+  w.fidel = {
+    define : function define(name, obj){
+      var FidelModule = function(options) {
+        this.__init(options);
+      };
+      FidelModule.prototype = new Fidel(obj);
+      w.fidel.modules[name] = FidelModule;
+
+      if (typeof window.fidel.$ !== 'undefined') {
+        window.fidel.$(name,obj);
+      }
+
+      return FidelModule;
+    },
+    modules : {}
+  };
 })(window, window.jQuery || window.Zepto);
 
 (function($) {
-  $.declare = function(name, obj) {
+  window.fidel = window.fidel || {};
 
-    $.fn[name] = function() {
-      var args = Array.prototype.slice.call(arguments);
-      var options = args.shift();
-      var methodValue;
-      var els;
+  window.fidel.$ = function(name, obj) {
+    if (typeof window.fidel.modules[name] === "undefined"){
+      throw "The module " + name + " hasn't been defined yet. You need to use fidel.define first!";
+    }
+    else {
+      $.fn[name] = function() {
+        var args = Array.prototype.slice.call(arguments);
+        var options = args.shift();
+        var methodValue;
+        var els;
 
-      els = this.each(function() {
-        var $this = $(this);
+        els = this.each(function() {
+          var $this = $(this);
 
-        var data = $this.data(name);
+          var data = $this.data(name);
 
-        if (!data) {
-          var View = Fidel.declare(obj);
-          var opts = $.extend({}, options, { el: $this });
-          data = new View(opts);
-          $this.data(name, data); 
-        }
-        if (typeof options === 'string') {
-          methodValue = data[options].apply(data, args);
-        }
-      });
+          if (!data) {
+            var View = window.fidel.modules[name];
+            var opts = $.extend({}, options, { el: $this });
+            data = new View(opts);
+            $this.data(name, data);
+          }
+          if (typeof options === 'string') {
+            methodValue = data[options].apply(data, args);
+          }
+        });
 
-      return (typeof methodValue !== 'undefined') ? methodValue : els;
-    };
+        return (typeof methodValue !== 'undefined') ? methodValue : els;
+      };
 
-    $.fn[name].defaults = obj.defaults || {};
-
+      $.fn[name].defaults = obj.defaults || {};
+    }
   };
 
   $.Fidel = window.Fidel;
-
 })(jQuery);
