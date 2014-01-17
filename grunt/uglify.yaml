@@ -1,0 +1,24 @@
+options:
+  banner: '<%= meta.banner %>'
+fidel-dist:
+  files:
+    'lib/fidel.js':
+      - 'dist/fidel.min.js'
+fidel:
+  options:
+    compress: false
+  files:
+    'lib/fidel.js':
+      - 'dist/fidel.js'
+jquery-dist:
+  files:
+    'dist/fidel.jquery.min.js' :
+      - 'lib/fidel.js'
+      - 'lib/fidel.jquery.js'
+jquery:
+  options:
+    compress: false
+  files:
+    'dist/fidel.jquery.js' :
+      - 'lib/fidel.js'
+      - 'lib/fidel.jquery.js'

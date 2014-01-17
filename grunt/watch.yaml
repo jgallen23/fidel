@@ -1,0 +1,10 @@
+main:
+  files: '<%= jshint.main %>'
+  tasks:
+    - 'scripts'
+ci:
+  files:
+    - 'Gruntfile.js'
+    - 'test/index.html'
+  tasks:
+    - 'default'

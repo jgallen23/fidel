@@ -1,0 +1,8 @@
+server:
+  port: 8000
+  base: '.'
+plato:
+  port: 8000
+  base: 'reports'
+  options:
+    keepalive: true

@@ -1,0 +1,5 @@
+main:
+  - 'Gruntfile.js'
+  - 'bower.json'
+  - 'lib/**/*.js'
+  - 'test/*.js'

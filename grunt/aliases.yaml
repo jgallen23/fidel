@@ -1,0 +1,15 @@
+scripts:
+  - 'jshint'
+  - 'concat'
+  - 'uglify'
+  - 'mocha'
+  - 'bytesize'
+default:
+  - 'scripts'
+dev:
+  - 'connect:server'
+  - 'reloadr'
+  - 'watch:main'
+reports:
+  - 'plato'
+  - 'connect:plato'
