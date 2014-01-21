@@ -1,6 +1,5 @@
 scripts:
   - 'jshint'
-  - 'concat'
   - 'uglify'
   - 'mocha'
   - 'bytesize'
