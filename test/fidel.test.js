@@ -26,6 +26,10 @@ suite('Fidel', function() {
       assert.notEqual(typeof fidel.modules.test, 'undefined');
     });
 
+    test('defaults saved into module.defaults', function(){
+      assert.notEqual(typeof fidel.modules.test.defaults, 'undefined');
+    });
+
     test('init is called', function() {
       assert.ok(view.initWasCalled);
     });
@@ -49,6 +53,25 @@ suite('Fidel', function() {
       assert.equal(viewObj.defaults.debug, false);
     });
 
+    test('doesn\'t mess with not instantiated defaults', function() {
+      assert.equal(fidel.modules.test.defaults.debug, false);
+    });
+
+    test('Global defaults can be overwritten', function() {
+      fidel.modules.test.defaults.enabled = false;
+
+      view = new View({
+        el: el,
+        debug: true,
+        test: 123
+      });
+
+      fidel.modules.test.defaults.enabled = true;
+
+      assert.equal(view.enabled, false);
+    });
+
+
     test('each instance gets a unique id', function() {
       assert.ok(view.id);
       var view2 = new View({ el: el });
@@ -56,7 +79,7 @@ suite('Fidel', function() {
     });
 
     test('instanceof', function() {
-      //assert.equal(view instanceof Fidel, true);
+      assert.equal(view instanceof Fidel, true);
       assert.equal(view instanceof View, true);
     });
   });
@@ -327,7 +350,6 @@ suite('Fidel', function() {
 
   suite('Multiple instances', function() {
     test('multiple instances don\'t conflict', function() {
-
       var view2 = new View({
         el: el,
         debug: false,
