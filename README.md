@@ -66,6 +66,14 @@ Inside of your plugin functions you can access all those options inside of `this
 	this.overlayOpacity; // 0.5 overwritten at instantiation
 	this.closeOnEsc; // true which is the default value
 	
+#### Overwriting defaults
+
+Fidel stores it defaults in a Global an accessible property, so it's really easy to you to change a setting for all future plugins being created. So, let's say you don't want `closeOnEsc` to be `true` by default in your application. You'd do something like this:
+
+	fidel.modules.modal.defaults.closeOnEsc = false;
+	
+Note that `modal` should be exchanged by your plugin's name. From now on, all the instances you create of your plugin, will have `closeOnEsc` as `false` instead of `true` by default.		
+	
 ### Events
 
 In a similar way of Backbone Views, Fidel will bind to events passed within the element you provide on instantiation:
@@ -85,6 +93,19 @@ In a similar way of Backbone Views, Fidel will bind to events passed within the 
 So, as you can see,	 the key is the **event type** and the value is **the function which will be called**. The scope **will be** mantained so `this` will still be your plugin object.
 
 You can also provide a selector on the event to be matched.
+
+#### Fidel events
+
+Fidel does fire a couple of events so you can perform extra actions in certain situations. 
+
+- **`FidelPreInit`**: Fires *before* the `init` function of your plugin executes.
+- **`FidelPostInit`**: Fires *after* the `init` function of your plugin executes.
+
+These events are fired on the `body` element of the DOM, so make sure to bind to that element if you intend to use these. The events receive the plugin as parameter:
+
+	$('body').on('FidelPreInit', function(event, plugin){
+		plugin.doSomethingExtra();
+	});
 
 ### Destroy
 
