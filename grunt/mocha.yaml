@@ -1,6 +1,0 @@
-all:
-  src: 'test/index.html'
-  options:
-    run: true
-    growl: true
-    reporter: 'Spec'

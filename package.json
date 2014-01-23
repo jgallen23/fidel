@@ -3,17 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "devDependencies": {
-    "mocha": "1.10.0",
     "grunt": "~0.4.1",
-    "grunt-reloadr": "~0.1.2",
-    "grunt-mocha": "~0.4.9",
-    "grunt-contrib-concat": "~0.3.0",
-    "grunt-contrib-uglify": "~0.3.0",
-    "grunt-contrib-jshint": "~0.8.0",
-    "grunt-contrib-connect": "~0.6.0",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-plato": "~0.2.0",
-    "grunt-bytesize": "~0.1.0",
-    "load-grunt-config": "~0.7.0"
+    "fatjs": "~0.2.0"
   }
 }
