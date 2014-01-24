@@ -1,3 +1,5 @@
+/*global fidel, teardown, viewObj, Fidel */
+/*jshint unused: false */
 suite('Fidel', function() {
 
   var View;

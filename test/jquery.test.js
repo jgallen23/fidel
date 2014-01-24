@@ -1,3 +1,4 @@
+/*global fidel, teardown, viewObj */
 suite('jQuery', function() {
   var View;
   var view;

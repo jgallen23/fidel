@@ -1,3 +1,4 @@
+/*jshint unused: false */
 var viewObj = {
   defaults: {
     enabled: true,
