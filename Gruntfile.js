@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-  require('fatjs')(grunt, {
+  require('ft-build')('browser', grunt, {
     name: 'fidel',
     bowerExclude: [
       'jquery'
