@@ -1,4 +1,13 @@
 
+3.0.0-beta.1 / 2014-07-07 
+==================
+
+  * [build] replaced fatjs with ft-build
+  * Adding fidel prefix to jQuery data and simplifying jQuery tests
+  * Adding fidel.modules.ModuleName.defaults feature
+  * Moving to load-grunt-config and updating dependencies
+	* Refactor for v3
+
 2.2.5 / 2014-01-03 
 ==================
 

@@ -5,7 +5,6 @@
  * copyright Greg Allen 2014
  * MIT License
 */
-
 (function(w, $) {
   var _id = 0;
   var $body = $('body');
