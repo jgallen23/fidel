@@ -27,6 +27,12 @@ suite('jQuery', function() {
     assert.equal(typeof $('#fixture').fidelPlugin, 'function');
   });
 
+	test('The plugin should bind to FidelDefine', function () {
+		var events = $._data(document.body, 'events');
+
+		assert.equal(events.FidelDefined.length, 1);
+	});
+
   test('$.fn.plugin.defaults will map to View.defaults', function() {
     assert.equal($.fn.fidelPlugin.defaults, viewObj.defaults);
   });

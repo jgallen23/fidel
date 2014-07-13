@@ -348,6 +348,21 @@ suite('Fidel', function() {
       });
       var v = new Tmp({ el: el });
     });
+		test('FidelDefined fires', function (done) {
+			var configObj = {
+				init: function() {
+					this.initWasCalled = true;
+				}
+			};
+
+			$('body').one('FidelDefined', function (e, name, obj) {
+				assert.equal(name, 'test');
+				assert.deepEqual(obj, configObj);
+				done();
+			});
+
+			var Tmp = fidel.define('test', configObj);
+		});
   });
 
   suite('Multiple instances', function() {
