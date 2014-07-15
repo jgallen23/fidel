@@ -1,5 +1,6 @@
 /*jshint unused: false */
 var viewObj = {
+  plugins: ['dataEl'],
   defaults: {
     enabled: true,
     debug: false,
